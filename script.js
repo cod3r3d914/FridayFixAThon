@@ -41,16 +41,16 @@ let setupTapTimer = null;
 const FALLBACK_DURATION_MS = 18000;
 
 const ticketThemes = [
-  { title: "CCD not sending", meta: "Interoperability", status: "Triaged" },
-  { title: "Appointments not syncing", meta: "Scheduling", status: "Fix found" },
-  { title: "Balance updates", meta: "Patient account", status: "Validated" },
-  { title: "Luma Demographic Form Sync", meta: "Integration", status: "Partnered" },
-  { title: "API Failures for Luma", meta: "API", status: "Escalated" },
-  { title: "Enrollment issue for PxP", meta: "PxP enrollment", status: "Next step" },
-  { title: "Password Resets", meta: "Access", status: "Resolved" },
-  { title: "Linked Accounts", meta: "Patient portal", status: "KB linked" },
-  { title: "Virtual Visits", meta: "Care access", status: "Updated" },
-  { title: "Advanced Audit Reporting", meta: "Reporting", status: "Documented" }
+  { title: "CCD Troubleshooting", meta: "Troubleshooting Practice", status: "Signal Found" },
+  { title: "Case Queue Management", meta: "Workflow Coaching", status: "Workflow Improved" },
+  { title: "Effective Salesforce Searching", meta: "Search Strategy", status: "Knowledge Shared" },
+  { title: "Linked Accounts Review", meta: "Knowledge Transfer", status: "Knowledge Shared" },
+  { title: "Luma Deep Dive", meta: "Deep Dive Learning", status: "Deep Dive Complete" },
+  { title: "CCD Routing Review", meta: "Root Cause Review", status: "RCA Reviewed" },
+  { title: "Queue Ownership Review", meta: "Process Alignment", status: "Process Aligned" },
+  { title: "Salesforce Search Filters", meta: "Search Strategy", status: "Search Sharpened" },
+  { title: "Linked Account Cleanup", meta: "Knowledge Transfer", status: "Knowledge Shared" },
+  { title: "Luma Sync Follow-up", meta: "Partnered Learning", status: "Learning Shared" }
 ];
 
 const teamMembers = [
