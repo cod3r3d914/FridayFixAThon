@@ -19,12 +19,23 @@
 
       <form class="setup-panel" data-setup-panel hidden>
         <label>
-          <span>Guest speaker</span>
+          <span>Presented By</span>
           <input type="text" data-guest-input placeholder="Name" autocomplete="off" />
         </label>
         <label>
           <span>Topic</span>
           <input type="text" data-topic-input placeholder="Focus area" autocomplete="off" />
+        </label>
+        <label>
+          <span>Date</span>
+          <div class="date-control">
+            <input type="date" data-date-input />
+            <button type="button" data-use-today>Today</button>
+          </div>
+        </label>
+        <label class="setup-wide">
+          <span>Agenda bullets</span>
+          <textarea data-agenda-input placeholder="One bullet per line"></textarea>
         </label>
         <div class="setup-actions">
           <button type="submit">Apply</button>
@@ -87,13 +98,22 @@
           <span class="word word-friday">Friday</span>
           <span class="word word-fixathon">Fix-A-Thon</span>
         </h1>
-        <p class="subline">Let's fix what matters.</p>
+        <p class="subline"><span class="checkmark" aria-hidden="true">&#10003;</span> Continuous Improvement for Support, Always Learning</p>
         <p class="host-line">Hosted by: Cody Allison</p>
-        <p class="guest-line" data-guest-line>Guest speaker: TBA</p>
+        <p class="date-line" data-date-line>Date: Today</p>
         <p class="topic-line" data-topic-line>Topic: Today's focus</p>
+        <p class="guest-line" data-guest-line>Presented By: TBA</p>
       </section>
 
       <button class="start-button" type="button" data-start-intro>Start intro</button>
+      <button class="agenda-button" type="button" data-toggle-agenda>Agenda</button>
+      <section class="agenda-panel" data-agenda-panel hidden aria-label="Meeting agenda">
+        <div class="agenda-header">
+          <strong>Agenda</strong>
+          <button type="button" data-close-agenda>Close</button>
+        </div>
+        <ul data-agenda-list></ul>
+      </section>
       <p class="audio-note" data-audio-note aria-live="polite"></p>
 
       <audio data-intro-audio src="assets/friday-fixathon-intro.mp3" preload="auto"></audio>

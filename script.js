@@ -2,7 +2,9 @@ const SETUP_SEQUENCE = "codyfix";
 const SETUP_SHORTCUT = { key: "f", ctrlKey: true, altKey: true };
 const STORAGE_KEYS = {
   guest: "fridayFixathonGuest",
-  topic: "fridayFixathonTopic"
+  topic: "fridayFixathonTopic",
+  date: "fridayFixathonDate",
+  agenda: "fridayFixathonAgenda"
 };
 
 const stage = document.querySelector("[data-stage]");
@@ -56,6 +58,15 @@ const teamMembers = [
   { name: "Lindsay Lawsure", role: "Sr. Specialist I, Tech Support" },
   { name: "Prabhasini Das", role: "Specialist I, Client Support" }
 ];
+
+const defaultAgenda = [
+  "Welcome and focus area",
+  "Guest speaker walkthrough",
+  "Open support questions",
+  "Documentation and KB follow-up",
+  "Next steps"
+];
+
 const showNote = (message) => {
   if (!audioNote) {
     return;
@@ -108,16 +119,67 @@ const buildNameRain = () => {
 
   nameRain.replaceChildren(fragment);
 };
-const setMeetingDetails = (guest, topic) => {
+const getTodayValue = () => {
+  const now = new Date();
+  const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
+  return localDate.toISOString().slice(0, 10);
+};
+
+const formatMeetingDate = (dateValue) => {
+  const value = dateValue || getTodayValue();
+  const parsed = new Date(`${value}T12:00:00`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return "Today";
+  }
+
+  return parsed.toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+  });
+};
+
+const parseAgendaItems = (value) => value
+  .split(/\r?\n|\|/)
+  .map(normalizeText)
+  .filter(Boolean);
+
+const resolveAgendaItems = (items) => (items.length ? items : defaultAgenda);
+
+const renderAgenda = (items) => {
+  if (!agendaList) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+
+  resolveAgendaItems(items).forEach((item) => {
+    const agendaItem = document.createElement("li");
+    agendaItem.textContent = item;
+    fragment.append(agendaItem);
+  });
+
+  agendaList.replaceChildren(fragment);
+};
+
+const setMeetingDetails = (guest, topic, dateValue, agendaItems) => {
   const guestText = normalizeText(guest) || "TBA";
   const topicText = normalizeText(topic) || "Today's focus";
+  const meetingDate = dateValue || getTodayValue();
+  const agenda = Array.isArray(agendaItems) ? agendaItems : parseAgendaItems(agendaItems || "");
 
   if (guestLine) {
-    guestLine.textContent = `Guest speaker: ${guestText}`;
+    guestLine.textContent = `Presented By: ${guestText}`;
   }
 
   if (topicLine) {
     topicLine.textContent = `Topic: ${topicText}`;
+  }
+
+  if (dateLine) {
+    dateLine.textContent = `Date: ${formatMeetingDate(meetingDate)}`;
   }
 
   if (guestInput) {
@@ -127,18 +189,32 @@ const setMeetingDetails = (guest, topic) => {
   if (topicInput) {
     topicInput.value = topicText === "Today's focus" ? "" : topicText;
   }
+
+  if (dateInput) {
+    dateInput.value = meetingDate;
+  }
+
+  if (agendaInput) {
+    agendaInput.value = resolveAgendaItems(agenda).join("\n");
+  }
+
+  renderAgenda(agenda);
 };
 
 const loadMeetingDetails = () => {
   const params = new URLSearchParams(window.location.search);
   const guest = params.get("guest") || window.localStorage.getItem(STORAGE_KEYS.guest) || "";
   const topic = params.get("topic") || window.localStorage.getItem(STORAGE_KEYS.topic) || "";
-  setMeetingDetails(guest, topic);
+  const dateValue = params.get("date") || window.localStorage.getItem(STORAGE_KEYS.date) || getTodayValue();
+  const agenda = params.get("agenda") || window.localStorage.getItem(STORAGE_KEYS.agenda) || "";
+  setMeetingDetails(guest, topic, dateValue, parseAgendaItems(agenda));
 };
 
 const saveMeetingDetails = () => {
   const guest = normalizeText(guestInput?.value || "");
   const topic = normalizeText(topicInput?.value || "");
+  const dateValue = dateInput?.value || getTodayValue();
+  const agendaItems = parseAgendaItems(agendaInput?.value || "");
 
   if (guest) {
     window.localStorage.setItem(STORAGE_KEYS.guest, guest);
@@ -152,9 +228,51 @@ const saveMeetingDetails = () => {
     window.localStorage.removeItem(STORAGE_KEYS.topic);
   }
 
-  setMeetingDetails(guest, topic);
+  if (dateValue) {
+    window.localStorage.setItem(STORAGE_KEYS.date, dateValue);
+  } else {
+    window.localStorage.removeItem(STORAGE_KEYS.date);
+  }
+
+  if (agendaItems.length) {
+    window.localStorage.setItem(STORAGE_KEYS.agenda, agendaItems.join("\n"));
+  } else {
+    window.localStorage.removeItem(STORAGE_KEYS.agenda);
+  }
+
+  setMeetingDetails(guest, topic, dateValue, agendaItems);
   hideSetupPanel();
-  showNote("Guest speaker and topic updated.");
+  showNote("Meeting details and agenda updated.");
+};
+
+const showAgendaPanel = () => {
+  if (!agendaPanel) {
+    return;
+  }
+
+  agendaPanel.hidden = false;
+  stage?.classList.add("is-agenda-open");
+};
+
+const hideAgendaPanel = () => {
+  if (!agendaPanel) {
+    return;
+  }
+
+  agendaPanel.hidden = true;
+  stage?.classList.remove("is-agenda-open");
+};
+
+const toggleAgendaPanel = () => {
+  if (!agendaPanel) {
+    return;
+  }
+
+  if (agendaPanel.hidden) {
+    showAgendaPanel();
+  } else {
+    hideAgendaPanel();
+  }
 };
 
 const showSetupPanel = () => {
@@ -241,6 +359,7 @@ const restartAnimation = () => {
   }
 
   hideSetupPanel();
+  hideAgendaPanel();
   window.clearTimeout(completionTimer);
   stage.classList.remove("is-playing", "is-complete");
   void stage.offsetWidth;
@@ -276,6 +395,7 @@ const trackSetupSequence = (event) => {
 
   if (event.key === "Escape") {
     hideSetupPanel();
+    hideAgendaPanel();
     commandBuffer = "";
     return;
   }
@@ -319,6 +439,23 @@ if (setupPanel) {
 
 if (closeSetupButton) {
   closeSetupButton.addEventListener("click", hideSetupPanel);
+}
+
+if (useTodayButton) {
+  useTodayButton.addEventListener("click", () => {
+    if (dateInput) {
+      dateInput.value = getTodayValue();
+      dateInput.focus();
+    }
+  });
+}
+
+if (agendaButton) {
+  agendaButton.addEventListener("click", toggleAgendaPanel);
+}
+
+if (closeAgendaButton) {
+  closeAgendaButton.addEventListener("click", hideAgendaPanel);
 }
 
 if (audio) {

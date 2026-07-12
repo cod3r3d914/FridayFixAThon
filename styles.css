@@ -31,7 +31,8 @@ body {
 }
 
 button,
-input {
+input,
+textarea {
   font: inherit;
 }
 
@@ -115,10 +116,10 @@ input {
   top: 1rem;
   z-index: 8;
   display: grid;
-  grid-template-columns: minmax(170px, 230px) minmax(190px, 280px) auto;
+  grid-template-columns: minmax(160px, 1fr) minmax(190px, 1.2fr) minmax(190px, 1fr);
   gap: 0.65rem;
   align-items: end;
-  width: min(calc(100vw - 2rem), 760px);
+  width: min(calc(100vw - 2rem), 980px);
   padding: 0.76rem;
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -141,7 +142,8 @@ input {
   text-transform: uppercase;
 }
 
-.setup-panel input {
+.setup-panel input,
+.setup-panel textarea {
   width: 100%;
   min-height: 40px;
   padding: 0.58rem 0.68rem;
@@ -152,8 +154,24 @@ input {
   outline: none;
 }
 
-.setup-panel input:focus {
+.setup-panel textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.setup-panel input:focus,
+.setup-panel textarea:focus {
   border-color: rgba(42, 224, 207, 0.78);
+}
+
+.setup-wide {
+  grid-column: 1 / -1;
+}
+
+.date-control {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
 }
 
 .setup-panel button,
@@ -399,6 +417,7 @@ input {
 .eyebrow,
 .subline,
 .host-line,
+.date-line,
 .guest-line,
 .topic-line {
   margin: 0;
@@ -445,11 +464,11 @@ h1 {
 
 .subline {
   width: fit-content;
-  max-width: min(92vw, 780px);
+  max-width: min(92vw, 820px);
   margin: 0 auto;
   padding: 0.38rem 0.92rem;
   color: #f8fffd;
-  font-size: clamp(1.35rem, 2.9vw, 2.25rem);
+  font-size: clamp(1.28rem, 2.6vw, 2.1rem);
   font-weight: 900;
   line-height: 1.08;
   border-bottom: 2px solid rgba(42, 224, 207, 0.5);
@@ -458,7 +477,21 @@ h1 {
   transform: translateY(-10px);
 }
 
+.checkmark {
+  display: inline-grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.28rem;
+  color: #041015;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  font-size: 0.72em;
+  vertical-align: 0.08em;
+}
+
 .host-line,
+.date-line,
 .guest-line,
 .topic-line {
   position: relative;
@@ -488,44 +521,68 @@ h1 {
   border-color: rgba(113, 168, 255, 0.36);
 }
 
+.date-line {
+  margin-top: 0.44rem;
+  color: rgba(246, 255, 251, 0.86);
+  font-size: clamp(0.94rem, 1.45vw, 1.12rem);
+  border-color: rgba(42, 224, 207, 0.26);
+  background: rgba(4, 16, 21, 0.72);
+}
+
 .guest-line {
-  margin-top: 0.5rem;
-  color: #041015;
-  font-size: clamp(1.15rem, 2.1vw, 1.58rem);
-  border-color: rgba(163, 232, 90, 0.56);
-  background: linear-gradient(135deg, rgba(163, 232, 90, 0.96), rgba(42, 224, 207, 0.94));
-  box-shadow: 0 16px 44px rgba(42, 224, 207, 0.24);
+  margin-top: 0.56rem;
+  color: rgba(246, 255, 251, 0.96);
+  font-size: clamp(1.05rem, 1.9vw, 1.42rem);
+  border-color: rgba(42, 224, 207, 0.42);
+  background: linear-gradient(135deg, rgba(4, 16, 21, 0.92), rgba(7, 38, 43, 0.88));
+  box-shadow: 0 16px 44px rgba(42, 224, 207, 0.22);
 }
 
 .topic-line {
   z-index: 4;
   margin-top: 0.72rem;
-  padding: 0.72rem 1.08rem;
-  color: #041015;
-  font-size: clamp(1.35rem, 3vw, 2.35rem);
-  border: 2px solid rgba(255, 255, 255, 0.36);
-  background: linear-gradient(135deg, #ffc857, #a3e85a 52%, #2ae0cf);
-  box-shadow: 0 0 0 2px rgba(255, 200, 87, 0.16), 0 22px 72px rgba(255, 200, 87, 0.3);
+  padding: 0.76rem 1.1rem;
+  color: rgba(246, 255, 251, 0.98);
+  font-size: clamp(1.45rem, 3.2vw, 2.55rem);
+  border: 2px solid rgba(42, 224, 207, 0.48);
+  background:
+    linear-gradient(135deg, rgba(4, 16, 21, 0.96), rgba(8, 45, 46, 0.92)),
+    linear-gradient(90deg, rgba(42, 224, 207, 0.18), rgba(163, 232, 90, 0.16));
+  box-shadow: 0 0 0 2px rgba(42, 224, 207, 0.14), 0 22px 72px rgba(42, 224, 207, 0.32);
   transform-origin: 50% -34px;
 }
+
+.guest-line::before,
+.topic-line::before {
+  position: absolute;
+  inset: -16% -8%;
+  z-index: 0;
+  content: "0101 1100 1010 0110  FIX  0011 1001  NEXT  0110 0101  KB  1010 1100";
+  color: rgba(163, 232, 90, 0.24);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0.18em;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  text-shadow: 0 0 12px rgba(42, 224, 207, 0.42);
+  transform: translateY(26%) skewX(-10deg);
+  white-space: normal;
+}
+
 .guest-line::after,
 .topic-line::after {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   content: "";
   opacity: 0;
   pointer-events: none;
   border-radius: inherit;
+  background: linear-gradient(110deg, transparent 12%, rgba(42, 224, 207, 0.46) 42%, rgba(163, 232, 90, 0.35) 56%, transparent 78%);
   transform: translateX(-120%);
-}
-
-.guest-line::after {
-  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.52) 46%, transparent 70%);
-}
-
-.topic-line::after {
-  background: linear-gradient(110deg, transparent 12%, rgba(255, 255, 255, 0.68) 44%, rgba(255, 200, 87, 0.45) 56%, transparent 78%);
 }
 
 .start-button {
@@ -547,11 +604,93 @@ h1 {
 }
 
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
   outline: 3px solid rgba(246, 255, 251, 0.74);
   outline-offset: 3px;
 }
 
+
+.agenda-button {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1.3rem, 4.5vh, 2.4rem);
+  z-index: 4;
+  min-height: 52px;
+  padding: 0.85rem 1rem;
+  color: var(--ink);
+  font-weight: 850;
+  letter-spacing: 0;
+  border: 1px solid rgba(42, 224, 207, 0.34);
+  border-radius: 8px;
+  background: rgba(4, 16, 21, 0.84);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.agenda-button:hover,
+.intro-stage.is-agenda-open .agenda-button {
+  border-color: rgba(163, 232, 90, 0.62);
+  transform: translateY(-2px);
+}
+
+.agenda-panel[hidden] {
+  display: none !important;
+}
+
+.agenda-panel {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: calc(clamp(1.3rem, 4.5vh, 2.4rem) + 4.4rem);
+  z-index: 6;
+  width: min(420px, calc(100vw - 2rem));
+  padding: 0.9rem;
+  color: var(--ink);
+  border: 1px solid rgba(42, 224, 207, 0.3);
+  border-radius: 8px;
+  background: rgba(4, 16, 21, 0.94);
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.4);
+}
+
+.agenda-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.agenda-header strong {
+  color: var(--green);
+  font-size: 0.82rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.agenda-header button {
+  min-height: 36px;
+  padding: 0.42rem 0.62rem;
+  color: var(--ink);
+  border: 1px solid rgba(246, 255, 251, 0.18);
+  border-radius: 8px;
+  background: rgba(246, 255, 251, 0.08);
+  cursor: pointer;
+}
+
+.agenda-panel ul {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding-left: 1.15rem;
+}
+
+.agenda-panel li {
+  color: rgba(246, 255, 251, 0.9);
+  font-size: clamp(0.88rem, 1.4vw, 1rem);
+  font-weight: 720;
+  line-height: 1.28;
+}
 .audio-note {
   position: fixed;
   left: 50%;
@@ -664,25 +803,43 @@ input:focus-visible {
   animation: sublineIn 700ms 3s ease both;
 }
 
-.intro-stage.is-playing .guest-line {
-  animation: detailReveal 900ms 3.24s cubic-bezier(0.16, 1, 0.3, 1) both, guestGlow 1600ms 4.05s ease-out both;
-}
-
-.intro-stage.is-playing .guest-line::after {
-  animation: detailSweep 900ms 3.72s ease-out both;
+.intro-stage.is-playing .date-line {
+  animation: sublineIn 650ms 3.16s ease both;
 }
 
 .intro-stage.is-playing .topic-line {
-  animation: topicSwingIn 1500ms 3.58s cubic-bezier(0.16, 1, 0.3, 1) both, topicGlow 2600ms 4.35s ease-out both;
+  animation: topicSwingIn 1600ms 3.42s cubic-bezier(0.16, 1, 0.3, 1) both, topicGlow 2800ms 4.05s ease-out both;
+}
+
+.intro-stage.is-playing .topic-line::before {
+  animation: matrixCodeFlash 1500ms 3.46s steps(8, end) both;
 }
 
 .intro-stage.is-playing .topic-line::after {
-  animation: detailSweep 1100ms 4.05s ease-out both;
+  animation: detailSweep 1200ms 3.92s ease-out both;
+}
+
+.intro-stage.is-playing .guest-line {
+  animation: detailReveal 900ms 4.76s cubic-bezier(0.16, 1, 0.3, 1) both, guestGlow 1600ms 5.45s ease-out both;
+}
+
+.intro-stage.is-playing .guest-line::before {
+  animation: matrixCodeFlash 1200ms 4.86s steps(7, end) both;
+}
+
+.intro-stage.is-playing .guest-line::after {
+  animation: detailSweep 900ms 5.18s ease-out both;
+}
+
+.intro-stage.is-playing .start-button,
+.intro-stage.is-playing .agenda-button,
+.intro-stage.is-playing .agenda-panel {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
 }
 
 .intro-stage.is-playing .start-button {
-  opacity: 0;
-  pointer-events: none;
   transform: translateX(-50%) translateY(16px);
 }
 
@@ -870,6 +1027,20 @@ input:focus-visible {
 }
 
 
+
+@keyframes matrixCodeFlash {
+  0% {
+    opacity: 0;
+    transform: translateY(28%) skewX(-10deg);
+  }
+  18%, 62% {
+    opacity: 0.86;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-18%) skewX(-10deg);
+  }
+}
 @keyframes topicSwingIn {
   0% {
     opacity: 0;
@@ -894,13 +1065,13 @@ input:focus-visible {
 }
 @keyframes topicGlow {
   0%, 100% {
-    box-shadow: 0 0 0 2px rgba(255, 200, 87, 0.16), 0 22px 72px rgba(255, 200, 87, 0.3);
+    box-shadow: 0 0 0 2px rgba(42, 224, 207, 0.14), 0 22px 72px rgba(42, 224, 207, 0.32);
   }
   38% {
-    box-shadow: 0 0 0 7px rgba(246, 255, 251, 0.22), 0 0 54px rgba(255, 200, 87, 0.58), 0 26px 86px rgba(42, 224, 207, 0.32);
+    box-shadow: 0 0 0 7px rgba(246, 255, 251, 0.18), 0 0 54px rgba(42, 224, 207, 0.56), 0 26px 86px rgba(163, 232, 90, 0.3);
   }
   70% {
-    box-shadow: 0 0 0 3px rgba(255, 200, 87, 0.2), 0 24px 76px rgba(255, 200, 87, 0.38);
+    box-shadow: 0 0 0 3px rgba(42, 224, 207, 0.22), 0 24px 76px rgba(42, 224, 207, 0.38);
   }
 }
 
@@ -928,6 +1099,11 @@ input:focus-visible {
   .topic-line {
     max-width: min(94vw, 640px);
     font-size: clamp(1.18rem, 7vw, 1.72rem);
+  }
+
+  .date-line,
+  .guest-line {
+    max-width: min(94vw, 640px);
   }
 
   .ticket-card {
@@ -976,6 +1152,18 @@ input:focus-visible {
   .start-button {
     width: calc(100vw - 2.4rem);
   }
+
+  .agenda-button {
+    right: 1.2rem;
+    bottom: calc(clamp(1.3rem, 4.5vh, 2.4rem) + 4.3rem);
+  }
+
+  .agenda-panel {
+    left: 1rem;
+    right: 1rem;
+    bottom: calc(clamp(1.3rem, 4.5vh, 2.4rem) + 8.2rem);
+    width: auto;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1010,7 +1198,9 @@ input:focus-visible {
   }
 
   .pulse-line::after,
+  .guest-line::before,
   .guest-line::after,
+  .topic-line::before,
   .topic-line::after {
     animation: none !important;
   }
