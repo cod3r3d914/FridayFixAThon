@@ -431,6 +431,11 @@ const restartAnimation = () => {
 };
 
 const startIntro = async () => {
+  stage?.classList.remove("is-awaiting-replay");
+  if (startButton) {
+    startButton.textContent = "Start fixing";
+  }
+
   restartAnimation();
 
   if (!audio) {
