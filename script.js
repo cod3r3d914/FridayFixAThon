@@ -28,6 +28,7 @@ const closeAgendaButton = document.querySelector("[data-close-agenda]");
 const ticketCards = Array.from(document.querySelectorAll("[data-ticket-card]"));
 const nameRain = document.querySelector("[data-name-rain]");
 const championList = document.querySelector("[data-champion-list]");
+const championsPad = document.querySelector(".champions-pad");
 
 let completionTimer = null;
 let ticketCycleTimer = null;
@@ -377,10 +378,7 @@ const cycleTickets = () => {
 };
 
 const startTicketCycle = () => {
-  window.clearInterval(ticketCycleTimer);
   ticketCycleIndex = 0;
-  cycleTickets();
-  ticketCycleTimer = window.setInterval(cycleTickets, 2700);
 };
 
 const stopTicketCycle = () => {
@@ -442,6 +440,23 @@ const handleStartTouch = (event) => {
   startIntro();
 };
 
+const spawnChampionReaction = (event) => {
+  if (!stage?.classList.contains("is-playing")) {
+    return;
+  }
+
+  const reaction = document.createElement("span");
+  const symbols = ["??", "??", "??", "??", "??"];
+  const drift = `${Math.round((Math.random() * 80) - 40)}px`;
+
+  reaction.className = "champion-reaction";
+  reaction.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  reaction.style.left = `${event.clientX}px`;
+  reaction.style.top = `${event.clientY}px`;
+  reaction.style.setProperty("--reaction-drift", drift);
+  document.body.append(reaction);
+  window.setTimeout(() => reaction.remove(), 1000);
+};
 const trackMobileSetupTap = (event) => {
   if (!window.matchMedia("(max-width: 820px)").matches || !startButton || !stage) {
     return;
@@ -514,8 +529,6 @@ const trackSetupSequence = (event) => {
 buildChampionTicker();
 buildNameRain();
 loadMeetingDetails();
-cycleTickets();
-
 if (startButton) {
   startButton.addEventListener("click", startIntro);
   startButton.addEventListener("touchend", handleStartTouch, { passive: false });
@@ -547,6 +560,10 @@ if (agendaButton) {
 
 if (closeAgendaButton) {
   closeAgendaButton.addEventListener("click", hideAgendaPanel);
+}
+
+if (championsPad) {
+  championsPad.addEventListener("click", spawnChampionReaction);
 }
 
 if (audio) {

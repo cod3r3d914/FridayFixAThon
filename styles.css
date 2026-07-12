@@ -359,6 +359,42 @@ textarea {
   bottom: 22vh;
 }
 
+.ticket-e,
+.ticket-g,
+.ticket-i {
+  left: -250px;
+}
+
+.ticket-f,
+.ticket-h,
+.ticket-j {
+  right: -250px;
+}
+
+.ticket-e {
+  top: 43vh;
+}
+
+.ticket-f {
+  top: 48vh;
+}
+
+.ticket-g {
+  bottom: 14vh;
+}
+
+.ticket-h {
+  bottom: 34vh;
+}
+
+.ticket-i {
+  top: 60vh;
+}
+
+.ticket-j {
+  bottom: 8vh;
+}
+
 .improvement-board {
   left: 50%;
   bottom: clamp(4.8rem, 10vh, 6.2rem);
@@ -554,13 +590,12 @@ textarea {
   letter-spacing: 0.06em;
   white-space: nowrap;
 }
-.intro-stage.is-playing .champions-pad,
-.intro-stage.is-complete .champions-pad {
+.intro-stage.is-playing .champions-pad {
+  pointer-events: auto;
   animation: padPopIn 800ms 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.intro-stage.is-playing .champions-track,
-.intro-stage.is-complete .champions-track {
+.intro-stage.is-playing .champions-track {
   animation: championScroll 24s linear infinite;
 }
 
@@ -857,6 +892,29 @@ textarea:focus-visible {
   font-weight: 720;
   line-height: 1.28;
 }
+.champion-reaction {
+  position: fixed;
+  z-index: 40;
+  pointer-events: none;
+  font-size: 1.55rem;
+  filter: drop-shadow(0 0 12px rgba(255, 216, 111, 0.58));
+  animation: reactionFloat 950ms ease-out forwards;
+}
+
+@keyframes reactionFloat {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20%) scale(0.72);
+  }
+  22% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--reaction-drift)), -120px) scale(1.24);
+  }
+}
+
 .audio-note {
   position: fixed;
   left: 50%;
@@ -910,22 +968,57 @@ textarea:focus-visible {
 }
 
 .intro-stage.is-playing .ticket-card {
-  animation: ticketResolve 12s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: ticketResolve 8.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.intro-stage.is-playing .ticket-b {
-  animation-delay: 1.2s;
+.intro-stage.is-playing .ticket-card::after {
+  animation: ticketCheck 8.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.intro-stage.is-playing .ticket-c {
-  animation-delay: 2.4s;
+.intro-stage.is-playing .ticket-b,
+.intro-stage.is-playing .ticket-b::after {
+  animation-delay: 0.72s;
 }
 
-.intro-stage.is-playing .ticket-d {
+.intro-stage.is-playing .ticket-c,
+.intro-stage.is-playing .ticket-c::after {
+  animation-delay: 1.44s;
+}
+
+.intro-stage.is-playing .ticket-d,
+.intro-stage.is-playing .ticket-d::after {
+  animation-delay: 2.16s;
+}
+
+.intro-stage.is-playing .ticket-e,
+.intro-stage.is-playing .ticket-e::after {
+  animation-delay: 2.88s;
+}
+
+.intro-stage.is-playing .ticket-f,
+.intro-stage.is-playing .ticket-f::after {
   animation-delay: 3.6s;
 }
 
-.intro-stage.is-playing .ticket-a {
+.intro-stage.is-playing .ticket-g,
+.intro-stage.is-playing .ticket-g::after {
+  animation-delay: 4.32s;
+}
+
+.intro-stage.is-playing .ticket-h,
+.intro-stage.is-playing .ticket-h::after {
+  animation-delay: 5.04s;
+}
+
+.intro-stage.is-playing .ticket-i,
+.intro-stage.is-playing .ticket-i::after {
+  animation-delay: 5.76s;
+}
+
+.intro-stage.is-playing .ticket-j,
+.intro-stage.is-playing .ticket-j::after {
+  animation-delay: 6.48s;
+}.intro-stage.is-playing .ticket-a {
   --ticket-end-x: 30vw;
   --ticket-end-y: 3vh;
 }
@@ -943,6 +1036,36 @@ textarea:focus-visible {
 .intro-stage.is-playing .ticket-d {
   --ticket-end-x: -35vw;
   --ticket-end-y: -5vh;
+}
+
+.intro-stage.is-playing .ticket-e {
+  --ticket-end-x: 28vw;
+  --ticket-end-y: -1vh;
+}
+
+.intro-stage.is-playing .ticket-f {
+  --ticket-end-x: -28vw;
+  --ticket-end-y: 1vh;
+}
+
+.intro-stage.is-playing .ticket-g {
+  --ticket-end-x: 32vw;
+  --ticket-end-y: -3vh;
+}
+
+.intro-stage.is-playing .ticket-h {
+  --ticket-end-x: -32vw;
+  --ticket-end-y: 3vh;
+}
+
+.intro-stage.is-playing .ticket-i {
+  --ticket-end-x: 30vw;
+  --ticket-end-y: 2vh;
+}
+
+.intro-stage.is-playing .ticket-j {
+  --ticket-end-x: -30vw;
+  --ticket-end-y: -2vh;
 }
 
 .intro-stage.is-playing .improvement-board {
@@ -1092,6 +1215,51 @@ textarea:focus-visible {
   100% {
     opacity: 0;
     transform: translate(calc(-50% + var(--name-drift)), 112vh) scale(var(--name-scale));
+  }
+}
+
+@keyframes ticketResolveMobile {
+  0% {
+    opacity: 0;
+    transform: translateX(-92vw) scale(0.92) rotate(-4deg);
+  }
+  24%, 48% {
+    opacity: 0.94;
+    transform: translateX(0) scale(1) rotate(0deg);
+  }
+  76%, 100% {
+    opacity: 0;
+    transform: translateX(92vw) scale(0.96) rotate(4deg);
+  }
+}
+
+@keyframes ticketCheckMobile {
+  0%, 32% {
+    opacity: 0;
+    transform: scale(0.45) rotate(-18deg);
+  }
+  44%, 66% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(8deg);
+  }
+}
+
+@keyframes ticketCheck {
+  0%, 34% {
+    opacity: 0;
+    transform: scale(0.45) rotate(-18deg);
+  }
+  46%, 72% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(8deg);
   }
 }
 
@@ -1380,8 +1548,8 @@ textarea:focus-visible {
     line-height: 1.12;
   }
 
-  .checkmark {
-    margin-right: 0.1rem;
+  .subline-item {
+    gap: 0.24rem;
   }
 
   .host-line {
@@ -1421,60 +1589,119 @@ textarea:focus-visible {
   }
 
   .ticket-card {
-    z-index: 2;
-    width: min(235px, calc(100vw - 2.4rem));
-    min-height: 128px;
-    padding: 0.86rem 0.9rem;
-    background: rgba(5, 24, 31, 0.9);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+    left: 50%;
+    right: auto;
+    top: min(60vh, 510px);
+    bottom: auto;
+    z-index: 3;
+    width: min(270px, calc(100vw - 2rem));
+    min-height: 118px;
+    margin-left: calc(min(270px, calc(100vw - 2rem)) / -2);
+    padding: 0.78rem 0.84rem;
+    background: rgba(5, 24, 31, 0.94);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34), 0 0 28px rgba(42, 224, 207, 0.14);
   }
 
   .ticket-id {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
   }
 
   .ticket-card strong {
-    min-height: 2.4em;
-    font-size: 1.05rem;
+    min-height: 2.25em;
+    padding-right: 2.2rem;
+    font-size: 1rem;
     line-height: 1.14;
   }
 
   .ticket-meta {
-    font-size: 0.7rem;
+    font-size: 0.66rem;
   }
 
   .ticket-status {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
+  }
+
+
+  .ticket-b,
+  .ticket-d,
+  .ticket-f,
+  .ticket-h,
+  .ticket-j {
+    top: min(64vh, 540px);
   }
 
   .ticket-a,
-  .ticket-b {
-    left: 50%;
-    right: auto;
-    margin-left: max(-117px, calc((100vw - 2.4rem) / -2));
-  }
-
-  .ticket-a {
-    top: 12vh;
-  }
-
-  .ticket-b {
-    top: 25vh;
-  }
-
-  .intro-stage.is-playing .ticket-a {
-    --ticket-end-x: -6vw;
-    --ticket-end-y: 1.5vh;
-  }
-
-  .intro-stage.is-playing .ticket-b {
-    --ticket-end-x: 6vw;
-    --ticket-end-y: -1vh;
-  }
-
   .ticket-c,
-  .ticket-d {
-    display: none;
+  .ticket-e,
+  .ticket-g,
+  .ticket-i {
+    top: min(50vh, 420px);
+  }
+
+  .ticket-card::after {
+    right: 0.58rem;
+    top: 0.58rem;
+    width: 1.72rem;
+    height: 1.72rem;
+  }
+
+  .intro-stage.is-playing .ticket-card {
+    animation-name: ticketResolveMobile;
+    animation-duration: 3.15s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+  }
+
+  .intro-stage.is-playing .ticket-card::after {
+    animation-name: ticketCheckMobile;
+    animation-duration: 3.15s;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    animation-fill-mode: both;
+  }
+
+  .intro-stage.is-playing .ticket-b,
+  .intro-stage.is-playing .ticket-b::after {
+    animation-delay: 0.62s;
+  }
+
+  .intro-stage.is-playing .ticket-c,
+  .intro-stage.is-playing .ticket-c::after {
+    animation-delay: 1.24s;
+  }
+
+  .intro-stage.is-playing .ticket-d,
+  .intro-stage.is-playing .ticket-d::after {
+    animation-delay: 1.86s;
+  }
+
+  .intro-stage.is-playing .ticket-e,
+  .intro-stage.is-playing .ticket-e::after {
+    animation-delay: 2.48s;
+  }
+
+  .intro-stage.is-playing .ticket-f,
+  .intro-stage.is-playing .ticket-f::after {
+    animation-delay: 3.1s;
+  }
+
+  .intro-stage.is-playing .ticket-g,
+  .intro-stage.is-playing .ticket-g::after {
+    animation-delay: 3.72s;
+  }
+
+  .intro-stage.is-playing .ticket-h,
+  .intro-stage.is-playing .ticket-h::after {
+    animation-delay: 4.34s;
+  }
+
+  .intro-stage.is-playing .ticket-i,
+  .intro-stage.is-playing .ticket-i::after {
+    animation-delay: 4.96s;
+  }
+
+  .intro-stage.is-playing .ticket-j,
+  .intro-stage.is-playing .ticket-j::after {
+    animation-delay: 5.58s;
   }
 
   .improvement-board {
