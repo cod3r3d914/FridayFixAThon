@@ -1087,6 +1087,59 @@ textarea:focus-visible {
   }
 }
 
+@media (min-width: 1500px) and (max-height: 1100px) {
+  h1 {
+    font-size: clamp(6.5rem, 15vh, 10rem);
+  }
+
+  .topic-line {
+    font-size: clamp(2.2rem, 5.4vh, 3.55rem);
+  }
+
+  .guest-line {
+    font-size: clamp(1.4rem, 3.2vh, 1.95rem);
+  }
+}
+
+@media (max-height: 820px) {
+  .intro-stage {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  h1 {
+    margin: 0.18rem 0 0.42rem;
+    font-size: clamp(3.6rem, 13vh, 8rem);
+  }
+
+  .subline {
+    padding: 0.28rem 0.74rem;
+    font-size: clamp(1.02rem, 3vh, 1.6rem);
+  }
+
+  .host-line {
+    margin-top: 0.62rem;
+    font-size: clamp(0.92rem, 2.3vh, 1.12rem);
+  }
+
+  .date-line {
+    margin-top: 0.28rem;
+    padding: 0.36rem 0.68rem;
+    font-size: clamp(0.82rem, 2vh, 1rem);
+  }
+
+  .topic-line {
+    margin-top: 0.46rem;
+    padding: 0.68rem 1rem;
+    font-size: clamp(1.48rem, 5.1vh, 3rem);
+  }
+
+  .guest-line {
+    margin-top: 0.42rem;
+    padding: 0.56rem 0.9rem;
+    font-size: clamp(1rem, 3.2vh, 1.65rem);
+  }
+}
 @media (max-width: 820px) {
   .setup-panel {
     grid-template-columns: 1fr;
