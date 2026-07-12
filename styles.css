@@ -185,6 +185,7 @@ textarea {
   border-radius: 8px;
   background: linear-gradient(135deg, var(--green), var(--teal));
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .setup-actions {
@@ -593,7 +594,7 @@ h1 {
   position: fixed;
   left: 50%;
   top: 50%;
-  z-index: 10;
+  z-index: 20;
   min-width: 220px;
   min-height: 64px;
   padding: 1rem 1.6rem;
@@ -1254,7 +1255,9 @@ textarea:focus-visible {
   }
 
   .start-button {
+    z-index: 30;
     width: min(320px, calc(100vw - 2.4rem));
+    -webkit-tap-highlight-color: transparent;
   }
 
   .agenda-button {

@@ -32,6 +32,8 @@ let completionTimer = null;
 let ticketCycleTimer = null;
 let ticketCycleIndex = 0;
 let commandBuffer = "";
+let setupTapCount = 0;
+let setupTapTimer = null;
 
 const FALLBACK_DURATION_MS = 18000;
 
@@ -402,6 +404,44 @@ const startIntro = async () => {
   }
 };
 
+const handleStartTouch = (event) => {
+  event.preventDefault();
+  startIntro();
+};
+
+const trackMobileSetupTap = (event) => {
+  if (!window.matchMedia("(max-width: 820px)").matches || !startButton || !stage) {
+    return;
+  }
+
+  const target = event.target;
+
+  if (target instanceof HTMLButtonElement || target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+    return;
+  }
+
+  const rect = startButton.getBoundingClientRect();
+  const tapX = event.clientX;
+  const tapY = event.clientY;
+  const withinHiddenZone = tapX >= rect.left && tapX <= rect.right && tapY >= rect.top - 96 && tapY <= rect.top - 12;
+
+  if (!withinHiddenZone) {
+    setupTapCount = 0;
+    return;
+  }
+
+  setupTapCount += 1;
+  window.clearTimeout(setupTapTimer);
+  setupTapTimer = window.setTimeout(() => {
+    setupTapCount = 0;
+  }, 2200);
+
+  if (setupTapCount >= 6) {
+    setupTapCount = 0;
+    window.clearTimeout(setupTapTimer);
+    showSetupPanel();
+  }
+};
 const trackSetupSequence = (event) => {
   const target = event.target;
 
@@ -444,6 +484,7 @@ cycleTickets();
 
 if (startButton) {
   startButton.addEventListener("click", startIntro);
+  startButton.addEventListener("touchend", handleStartTouch, { passive: false });
 }
 
 if (setupPanel) {
@@ -479,3 +520,4 @@ if (audio) {
 }
 
 document.addEventListener("keydown", trackSetupSequence);
+stage?.addEventListener("pointerup", trackMobileSetupTap);
