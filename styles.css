@@ -829,7 +829,7 @@ textarea:focus-visible {
   position: fixed;
   right: clamp(1rem, 3vw, 2rem);
   bottom: clamp(1.3rem, 4.5vh, 2.4rem);
-  z-index: 10;
+  z-index: 80;
   min-height: 52px;
   padding: 0.85rem 1rem;
   color: var(--ink);
@@ -860,7 +860,7 @@ textarea:focus-visible {
   position: fixed;
   right: clamp(1rem, 3vw, 2rem);
   bottom: calc(clamp(1.3rem, 4.5vh, 2.4rem) + 4.4rem);
-  z-index: 12;
+  z-index: 90;
   width: min(420px, calc(100vw - 2rem));
   max-height: min(58vh, 460px);
   overflow: auto;
@@ -1761,8 +1761,8 @@ textarea:focus-visible {
 
   .intro-stage.is-playing.is-awaiting-replay .start-button {
     top: auto;
-    bottom: calc(0.72rem + 126px + 3.25rem);
-    width: min(190px, calc(100vw - 2.4rem));
+    bottom: calc(0.72rem + 126px + 6.5rem);
+    width: min(172px, calc(100vw - 2.4rem));
     min-width: 0;
     min-height: 48px;
     padding: 0.72rem 1rem;
