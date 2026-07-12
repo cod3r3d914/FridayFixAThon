@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Friday Fix-A-Thon Intro</title>
+    <meta
+      name="description"
+      content="A simple Friday Fix-A-Thon intro animation for the NextGen Healthcare support team."
+    />
+    <meta name="theme-color" content="#041015" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="intro-stage" data-stage>
+      <div class="flow flow-one" aria-hidden="true"></div>
+      <div class="flow flow-two" aria-hidden="true"></div>
+      <div class="pulse-line" aria-hidden="true"></div>
+
+      <section class="intro-copy" aria-label="Friday Fix-A-Thon intro">
+        <p class="eyebrow">NextGen Healthcare Support</p>
+        <h1 aria-label="Friday Fix-A-Thon">
+          <span class="word word-friday">Friday</span>
+          <span class="word word-fixathon">Fix-A-Thon</span>
+        </h1>
+        <p class="subline">Let's fix what matters.</p>
+      </section>
+
+      <button class="start-button" type="button" data-start-intro>Start intro</button>
+      <p class="audio-note" data-audio-note aria-live="polite"></p>
+
+      <audio data-intro-audio src="assets/friday-fixathon-intro.mp3" preload="auto"></audio>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
