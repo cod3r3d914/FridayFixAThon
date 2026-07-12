@@ -67,12 +67,16 @@ const teamMembers = [
   { name: "Prabhasini Das", role: "Specialist I, Client Support" }
 ];
 
+const defaultGuest = "Alysen Gunzelman";
+const defaultTopic = "Advanced Salesforce Searching";
+
 const defaultAgenda = [
-  "Welcome and focus area",
-  "Guest speaker walkthrough",
-  "Open support questions",
-  "Documentation and KB follow-up",
-  "Next steps"
+  "Welcome and meeting focus",
+  "Advanced Salesforce search techniques",
+  "Finding accounts, contacts, and cases faster",
+  "Using filters and keywords to narrow results",
+  "Support documentation and KB follow-up",
+  "Open questions and next steps"
 ];
 
 const showNote = (message) => {
@@ -173,8 +177,8 @@ const renderAgenda = (items) => {
 };
 
 const setMeetingDetails = (guest, topic, dateValue, agendaItems) => {
-  const guestText = normalizeText(guest) || "TBA";
-  const topicText = normalizeText(topic) || "Today's focus";
+  const guestText = normalizeText(guest) || defaultGuest;
+  const topicText = normalizeText(topic) || defaultTopic;
   const meetingDate = dateValue || getTodayValue();
   const agenda = Array.isArray(agendaItems) ? agendaItems : parseAgendaItems(agendaItems || "");
 
@@ -191,11 +195,11 @@ const setMeetingDetails = (guest, topic, dateValue, agendaItems) => {
   }
 
   if (guestInput) {
-    guestInput.value = guestText === "TBA" ? "" : guestText;
+    guestInput.value = guestText === defaultGuest ? "" : guestText;
   }
 
   if (topicInput) {
-    topicInput.value = topicText === "Today's focus" ? "" : topicText;
+    topicInput.value = topicText === defaultTopic ? "" : topicText;
   }
 
   if (dateInput) {
