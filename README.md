@@ -1,6 +1,6 @@
 # Friday Fix-A-Thon Intro Page
 
-A simple animated intro screen for the NextGen Healthcare support team's Friday Fix-A-Thon.
+A simple animated intro screen for the Customer Support Operations Friday Fix-A-Thon.
 
 ## Add The MP3
 

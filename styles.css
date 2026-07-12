@@ -207,6 +207,11 @@ textarea {
   pointer-events: none;
 }
 
+.intro-stage.is-agenda-open .start-button {
+  opacity: 0;
+  pointer-events: none;
+}
+
 .intro-stage.is-playing .setup-panel {
   opacity: 0;
   pointer-events: none;
@@ -853,6 +858,8 @@ textarea:focus-visible {
   bottom: calc(clamp(1.3rem, 4.5vh, 2.4rem) + 4.4rem);
   z-index: 12;
   width: min(420px, calc(100vw - 2rem));
+  max-height: min(58vh, 460px);
+  overflow: auto;
   padding: 0.9rem;
   color: var(--ink);
   border: 1px solid rgba(42, 224, 207, 0.3);
