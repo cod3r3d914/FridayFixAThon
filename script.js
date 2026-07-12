@@ -406,7 +406,7 @@ const waitForFinishClick = () => {
 
   if (startButton) {
     startButton.hidden = false;
-    startButton.textContent = "Replay intro";
+    startButton.textContent = "Reload";
   }
 };
 const restartAnimation = () => {
@@ -433,7 +433,11 @@ const restartAnimation = () => {
 };
 
 const startIntro = async () => {
-  stage?.classList.remove("is-awaiting-replay");
+  if (stage?.classList.contains("is-awaiting-replay")) {
+    window.location.reload();
+    return;
+  }
+
   if (startButton) {
     startButton.hidden = true;
     startButton.textContent = "Start fixing";
