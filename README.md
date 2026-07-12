@@ -4,38 +4,22 @@ A simple animated intro screen for the NextGen Healthcare support team's Friday 
 
 ## Add The MP3
 
-The page is already wired to play this file:
+The page is wired to play this file:
 
 ```text
 assets/friday-fixathon-intro.mp3
 ```
 
-Create or upload the MP3 with exactly that filename in the `assets` folder, then open `index.html` and click `Start intro`.
+Browsers usually block autoplay with sound, so the `Start intro` click intentionally starts both the animation and the audio.
 
-Browsers usually block autoplay with sound, so the click is intentional. It starts both the animation and the audio.
+## Preview Locally
 
-## Use A Hosted MP3 Instead
-
-If your MP3 is uploaded somewhere else, it needs to be a direct public HTTPS link to the actual `.mp3` file, not a private sharing page.
-
-Then change this line in `index.html`:
-
-```html
-<audio data-intro-audio src="assets/friday-fixathon-intro.mp3" preload="auto"></audio>
-```
-
-To something like:
-
-```html
-<audio data-intro-audio src="https://example.com/friday-fixathon-intro.mp3" preload="auto"></audio>
-```
+Open `index.html` directly in a browser, or use a simple local static server from this folder.
 
 ## GitHub
 
-This folder is ready to become its own GitHub repository. The saved GitHub CLI login on this machine needs to be refreshed before I can push it.
+Repository:
 
-Run this in PowerShell when you are ready:
-
-```powershell
-gh auth login -h github.com
+```text
+https://github.com/cod3r3d914/FridayFixAThon.git
 ```
