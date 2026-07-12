@@ -229,7 +229,7 @@ const setMeetingDetails = (guest, topic, dateValue, agendaItems) => {
   const agenda = Array.isArray(agendaItems) ? agendaItems : parseAgendaItems(agendaItems || "");
 
   if (guestLine) {
-    guestLine.textContent = `Presented By: ${guestText}`;
+    guestLine.textContent = `Presenter: ${guestText}`;
   }
 
   if (topicLine) {
