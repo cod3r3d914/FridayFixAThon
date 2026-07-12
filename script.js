@@ -1,4 +1,5 @@
 const SETUP_SEQUENCE = "codyfix";
+const SETUP_SHORTCUT = { key: "f", ctrlKey: true, altKey: true };
 const STORAGE_KEYS = {
   guest: "fridayFixathonGuest",
   topic: "fridayFixathonTopic"
@@ -15,6 +16,7 @@ const closeSetupButton = document.querySelector("[data-close-setup]");
 const guestLine = document.querySelector("[data-guest-line]");
 const topicLine = document.querySelector("[data-topic-line]");
 const ticketCards = Array.from(document.querySelectorAll("[data-ticket-card]"));
+const nameRain = document.querySelector("[data-name-rain]");
 
 let completionTimer = null;
 let ticketCycleTimer = null;
@@ -36,6 +38,24 @@ const ticketThemes = [
   { title: "Advanced Audit Reporting", meta: "Reporting", status: "Documented" }
 ];
 
+const teamMembers = [
+  { name: "Alysen Gunzelman", role: "Representative II, Client Services" },
+  { name: "Cody Allison", role: "Application Advisor" },
+  { name: "Demetrius Bauldie", role: "Sr. Specialist I, Tech Support" },
+  { name: "Eric Thul", role: "Sr. Specialist I, Tech Support" },
+  { name: "Jessica Page", role: "Director of Client Support Operations" },
+  { name: "Matthew Cress", role: "Specialist II, Technical Support" },
+  { name: "Sandeep Singh", role: "Manager, Client Services" },
+  { name: "Deepak Barman", role: "Specialist I, Client Support" },
+  { name: "Dhanigonda Ramakanth", role: "Client Services Consultant" },
+  { name: "Gray Goliszek", role: "Specialist I, Application Managed Services" },
+  { name: "Hariharan Karthikeyan", role: "Consultant" },
+  { name: "Hrithik Bhat", role: "Consultant" },
+  { name: "J.T. Faircloth", role: "Manager, Application Services" },
+  { name: "Le'Donna Dewberry", role: "Representative II, Application Support" },
+  { name: "Lindsay Lawsure", role: "Sr. Specialist I, Tech Support" },
+  { name: "Prabhasini Das", role: "Specialist I, Client Support" }
+];
 const showNote = (message) => {
   if (!audioNote) {
     return;
@@ -56,6 +76,38 @@ const getIntroDuration = () => {
 
 const normalizeText = (value) => value.trim().replace(/\s+/g, " ");
 
+const buildNameRain = () => {
+  if (!nameRain) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  const lanes = [3, 11, 19, 27, 36, 45, 54, 63, 72, 81, 89, 14, 32, 50, 68, 86];
+
+  teamMembers.forEach((member, index) => {
+    const tag = document.createElement("span");
+    const name = document.createElement("strong");
+    const role = document.createElement("small");
+    const lane = lanes[index % lanes.length];
+    const duration = 13 + (index % 5) * 1.7;
+    const delay = index * 0.72;
+    const drift = index % 2 === 0 ? 5 + (index % 4) : -5 - (index % 4);
+
+    tag.className = "name-tag";
+    tag.style.setProperty("--name-left", `${lane}%`);
+    tag.style.setProperty("--name-duration", `${duration}s`);
+    tag.style.setProperty("--name-delay", `${delay}s`);
+    tag.style.setProperty("--name-drift", `${drift}vw`);
+    tag.style.setProperty("--name-scale", String(0.88 + (index % 4) * 0.04));
+
+    name.textContent = member.name;
+    role.textContent = member.role;
+    tag.append(name, role);
+    fragment.append(tag);
+  });
+
+  nameRain.replaceChildren(fragment);
+};
 const setMeetingDetails = (guest, topic) => {
   const guestText = normalizeText(guest) || "TBA";
   const topicText = normalizeText(topic) || "Today's focus";
@@ -227,6 +279,16 @@ const trackSetupSequence = (event) => {
     commandBuffer = "";
     return;
   }
+  if (
+    event.key.toLowerCase() === SETUP_SHORTCUT.key &&
+    event.ctrlKey === SETUP_SHORTCUT.ctrlKey &&
+    event.altKey === SETUP_SHORTCUT.altKey
+  ) {
+    event.preventDefault();
+    showSetupPanel();
+    commandBuffer = "";
+    return;
+  }
 
   if (event.key.length !== 1) {
     return;
@@ -240,6 +302,7 @@ const trackSetupSequence = (event) => {
   }
 };
 
+buildNameRain();
 loadMeetingDetails();
 cycleTickets();
 
