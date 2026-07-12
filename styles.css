@@ -816,27 +816,27 @@ textarea:focus-visible {
 }
 
 .intro-stage.is-playing .topic-line {
-  animation: topicSwingIn 1600ms 3.42s cubic-bezier(0.16, 1, 0.3, 1) both, topicGlow 2800ms 4.05s ease-out both;
+  animation: topicSwingIn 1600ms 9.2s cubic-bezier(0.16, 1, 0.3, 1) both, topicGlow 2800ms 9.85s ease-out both;
 }
 
 .intro-stage.is-playing .topic-line::before {
-  animation: matrixCodeFlash 1500ms 3.46s steps(8, end) both;
+  animation: matrixCodeFlash 1500ms 9.25s steps(8, end) both;
 }
 
 .intro-stage.is-playing .topic-line::after {
-  animation: detailSweep 1200ms 3.92s ease-out both;
+  animation: detailSweep 1200ms 9.72s ease-out both;
 }
 
 .intro-stage.is-playing .guest-line {
-  animation: detailReveal 900ms 4.76s cubic-bezier(0.16, 1, 0.3, 1) both, guestGlow 1600ms 5.45s ease-out both;
+  animation: detailReveal 900ms 10.85s cubic-bezier(0.16, 1, 0.3, 1) both, guestGlow 1600ms 11.45s ease-out both;
 }
 
 .intro-stage.is-playing .guest-line::before {
-  animation: matrixCodeFlash 1200ms 4.86s steps(7, end) both;
+  animation: matrixCodeFlash 1200ms 10.92s steps(7, end) both;
 }
 
 .intro-stage.is-playing .guest-line::after {
-  animation: detailSweep 900ms 5.18s ease-out both;
+  animation: detailSweep 900ms 11.18s ease-out both;
 }
 
 .intro-stage.is-playing .start-button {
@@ -1150,8 +1150,23 @@ textarea:focus-visible {
     display: none;
   }
 
+  .name-rain {
+    z-index: 1;
+  }
+
   .name-tag {
-    max-width: min(220px, 44vw);
+    max-width: min(230px, 58vw);
+    padding: 0.5rem 0.62rem;
+    background: rgba(5, 24, 31, 0.84);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+  }
+
+  .name-tag strong {
+    font-size: 0.82rem;
+  }
+
+  .name-tag small {
+    font-size: 0.6rem;
   }
 
   .intro-stage {
@@ -1178,36 +1193,54 @@ textarea:focus-visible {
   }
 
   .ticket-card {
-    width: 156px;
-    min-height: 108px;
+    z-index: 2;
+    width: min(235px, calc(100vw - 2.4rem));
+    min-height: 128px;
+    padding: 0.86rem 0.9rem;
+    background: rgba(5, 24, 31, 0.9);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.34);
+  }
+
+  .ticket-id {
+    font-size: 0.72rem;
   }
 
   .ticket-card strong {
-    font-size: 0.88rem;
+    min-height: 2.4em;
+    font-size: 1.05rem;
+    line-height: 1.14;
   }
+
+  .ticket-meta {
+    font-size: 0.7rem;
+  }
+
+  .ticket-status {
+    font-size: 0.72rem;
+  }
+
   .ticket-a,
   .ticket-b {
     left: 50%;
     right: auto;
-    width: 168px;
-    margin-left: -84px;
+    margin-left: max(-117px, calc((100vw - 2.4rem) / -2));
   }
 
   .ticket-a {
-    top: 17vh;
+    top: 12vh;
   }
 
   .ticket-b {
-    top: 30vh;
+    top: 25vh;
   }
 
   .intro-stage.is-playing .ticket-a {
-    --ticket-end-x: -9vw;
-    --ticket-end-y: 2vh;
+    --ticket-end-x: -6vw;
+    --ticket-end-y: 1.5vh;
   }
 
   .intro-stage.is-playing .ticket-b {
-    --ticket-end-x: 9vw;
+    --ticket-end-x: 6vw;
     --ticket-end-y: -1vh;
   }
 

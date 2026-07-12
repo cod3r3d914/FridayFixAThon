@@ -105,7 +105,10 @@ const buildNameRain = () => {
   }
 
   const fragment = document.createDocumentFragment();
-  const lanes = [3, 11, 19, 27, 36, 45, 54, 63, 72, 81, 89, 14, 32, 50, 68, 86];
+  const isCompact = window.matchMedia("(max-width: 820px)").matches;
+  const lanes = isCompact
+    ? [24, 38, 52, 66, 76, 30, 46, 60, 72, 34, 50, 64, 28, 42, 56, 70]
+    : [3, 11, 19, 27, 36, 45, 54, 63, 72, 81, 89, 14, 32, 50, 68, 86];
 
   teamMembers.forEach((member, index) => {
     const tag = document.createElement("span");
@@ -114,7 +117,7 @@ const buildNameRain = () => {
     const lane = lanes[index % lanes.length];
     const duration = 13 + (index % 5) * 1.7;
     const delay = index * 0.72;
-    const drift = index % 2 === 0 ? 5 + (index % 4) : -5 - (index % 4);
+    const drift = isCompact ? (index % 2 === 0 ? 2 + (index % 3) : -2 - (index % 3)) : (index % 2 === 0 ? 5 + (index % 4) : -5 - (index % 4));
 
     tag.className = "name-tag";
     tag.style.setProperty("--name-left", `${lane}%`);
