@@ -78,6 +78,12 @@ const championMembers = [
 ];
 
 
+const championReactionAssets = [
+  "assets/facebook-reaction-like.png",
+  "assets/facebook-reactions-heart.png",
+  "assets/facebook-reaction-fires.png"
+];
+
 const defaultGuest = "Alysen Gunzelman";
 const defaultTopic = "Advanced Salesforce Searching";
 
@@ -445,12 +451,14 @@ const spawnChampionReaction = (event) => {
     return;
   }
 
-  const reaction = document.createElement("span");
-  const symbols = ["??", "??", "??", "??", "??"];
+  const reaction = document.createElement("img");
   const drift = `${Math.round((Math.random() * 80) - 40)}px`;
+  const asset = championReactionAssets[Math.floor(Math.random() * championReactionAssets.length)];
 
   reaction.className = "champion-reaction";
-  reaction.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+  reaction.src = asset;
+  reaction.alt = "Support champion reaction";
+  reaction.decoding = "async";
   reaction.style.left = `${event.clientX}px`;
   reaction.style.top = `${event.clientY}px`;
   reaction.style.setProperty("--reaction-drift", drift);

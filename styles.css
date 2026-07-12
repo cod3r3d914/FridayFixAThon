@@ -895,8 +895,10 @@ textarea:focus-visible {
 .champion-reaction {
   position: fixed;
   z-index: 40;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
   pointer-events: none;
-  font-size: 1.55rem;
   filter: drop-shadow(0 0 12px rgba(255, 216, 111, 0.58));
   animation: reactionFloat 950ms ease-out forwards;
 }
