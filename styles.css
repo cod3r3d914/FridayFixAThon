@@ -1609,7 +1609,7 @@ textarea:focus-visible {
   .ticket-card {
     left: 50%;
     right: auto;
-    top: min(60vh, 510px);
+    top: min(46vh, 390px);
     bottom: auto;
     z-index: 3;
     width: min(270px, calc(100vw - 2rem));
@@ -1645,7 +1645,7 @@ textarea:focus-visible {
   .ticket-f,
   .ticket-h,
   .ticket-j {
-    top: min(64vh, 540px);
+    top: min(55vh, 465px);
   }
 
   .ticket-a,
@@ -1653,7 +1653,7 @@ textarea:focus-visible {
   .ticket-e,
   .ticket-g,
   .ticket-i {
-    top: min(50vh, 420px);
+    top: min(42vh, 355px);
   }
 
   .ticket-card::after {
