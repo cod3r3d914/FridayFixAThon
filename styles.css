@@ -111,7 +111,8 @@ button {
 }
 
 .eyebrow,
-.subline {
+.subline,
+.host-line {
   margin: 0;
   opacity: 0;
   letter-spacing: 0;
@@ -160,6 +161,14 @@ h1 {
   font-size: clamp(1.05rem, 2.1vw, 1.55rem);
   font-weight: 700;
   transform: translateY(-10px);
+}
+
+.host-line {
+  margin-top: 0.6rem;
+  color: rgba(246, 255, 251, 0.74);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 760;
+  transform: translateY(-6px);
 }
 
 .start-button {
@@ -243,6 +252,10 @@ h1 {
 
 .intro-stage.is-playing .subline {
   animation: sublineIn 900ms 2.75s ease both;
+}
+
+.intro-stage.is-playing .host-line {
+  animation: sublineIn 760ms 3.18s ease both;
 }
 
 .intro-stage.is-playing .start-button {
@@ -356,7 +369,8 @@ h1 {
   .pulse-line,
   .eyebrow,
   .word,
-  .subline {
+  .subline,
+  .host-line {
     animation: none !important;
     opacity: 1;
     filter: none;
