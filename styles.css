@@ -115,7 +115,7 @@ textarea {
   position: fixed;
   left: 50%;
   top: 1rem;
-  z-index: 14;
+  z-index: 70;
   display: grid;
   grid-template-columns: minmax(160px, 1fr) minmax(190px, 1.2fr) minmax(190px, 1fr);
   gap: 0.65rem;
@@ -199,6 +199,12 @@ textarea {
   color: var(--ink);
   border: 1px solid rgba(246, 255, 251, 0.18);
   background: rgba(246, 255, 251, 0.08);
+}
+
+.intro-stage.is-setup-open .start-button,
+.intro-stage.is-setup-open .agenda-button {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .intro-stage.is-playing .setup-panel {
@@ -970,57 +976,59 @@ textarea:focus-visible {
 }
 
 .intro-stage.is-playing .ticket-card {
-  animation: ticketResolve 8.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ticketResolve 4.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .intro-stage.is-playing .ticket-card::after {
-  animation: ticketCheck 8.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: ticketCheck 4.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .intro-stage.is-playing .ticket-b,
 .intro-stage.is-playing .ticket-b::after {
-  animation-delay: 0.72s;
+  animation-delay: 0.32s;
 }
 
 .intro-stage.is-playing .ticket-c,
 .intro-stage.is-playing .ticket-c::after {
-  animation-delay: 1.44s;
+  animation-delay: 0.64s;
 }
 
 .intro-stage.is-playing .ticket-d,
 .intro-stage.is-playing .ticket-d::after {
-  animation-delay: 2.16s;
+  animation-delay: 0.96s;
 }
 
 .intro-stage.is-playing .ticket-e,
 .intro-stage.is-playing .ticket-e::after {
-  animation-delay: 2.88s;
+  animation-delay: 1.28s;
 }
 
 .intro-stage.is-playing .ticket-f,
 .intro-stage.is-playing .ticket-f::after {
-  animation-delay: 3.6s;
+  animation-delay: 1.6s;
 }
 
 .intro-stage.is-playing .ticket-g,
 .intro-stage.is-playing .ticket-g::after {
-  animation-delay: 4.32s;
+  animation-delay: 1.92s;
 }
 
 .intro-stage.is-playing .ticket-h,
 .intro-stage.is-playing .ticket-h::after {
-  animation-delay: 5.04s;
+  animation-delay: 2.24s;
 }
 
 .intro-stage.is-playing .ticket-i,
 .intro-stage.is-playing .ticket-i::after {
-  animation-delay: 5.76s;
+  animation-delay: 2.56s;
 }
 
 .intro-stage.is-playing .ticket-j,
 .intro-stage.is-playing .ticket-j::after {
-  animation-delay: 6.48s;
-}.intro-stage.is-playing .ticket-a {
+  animation-delay: 2.88s;
+}
+
+.intro-stage.is-playing .ticket-a {
   --ticket-end-x: 30vw;
   --ticket-end-y: 3vh;
 }
@@ -1225,22 +1233,22 @@ textarea:focus-visible {
     opacity: 0;
     transform: translateX(-92vw) scale(0.92) rotate(-4deg);
   }
-  24%, 48% {
+  20%, 42% {
     opacity: 0.94;
     transform: translateX(0) scale(1) rotate(0deg);
   }
-  76%, 100% {
+  70%, 100% {
     opacity: 0;
     transform: translateX(92vw) scale(0.96) rotate(4deg);
   }
 }
 
 @keyframes ticketCheckMobile {
-  0%, 32% {
+  0%, 28% {
     opacity: 0;
     transform: scale(0.45) rotate(-18deg);
   }
-  44%, 66% {
+  38%, 58% {
     opacity: 1;
     transform: scale(1) rotate(0deg);
   }
@@ -1649,61 +1657,61 @@ textarea:focus-visible {
 
   .intro-stage.is-playing .ticket-card {
     animation-name: ticketResolveMobile;
-    animation-duration: 3.15s;
+    animation-duration: 1.65s;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     animation-fill-mode: both;
   }
 
   .intro-stage.is-playing .ticket-card::after {
     animation-name: ticketCheckMobile;
-    animation-duration: 3.15s;
+    animation-duration: 1.65s;
     animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
     animation-fill-mode: both;
   }
 
   .intro-stage.is-playing .ticket-b,
   .intro-stage.is-playing .ticket-b::after {
-    animation-delay: 0.62s;
+    animation-delay: 0.72s;
   }
 
   .intro-stage.is-playing .ticket-c,
   .intro-stage.is-playing .ticket-c::after {
-    animation-delay: 1.24s;
+    animation-delay: 1.44s;
   }
 
   .intro-stage.is-playing .ticket-d,
   .intro-stage.is-playing .ticket-d::after {
-    animation-delay: 1.86s;
+    animation-delay: 2.16s;
   }
 
   .intro-stage.is-playing .ticket-e,
   .intro-stage.is-playing .ticket-e::after {
-    animation-delay: 2.48s;
+    animation-delay: 2.88s;
   }
 
   .intro-stage.is-playing .ticket-f,
   .intro-stage.is-playing .ticket-f::after {
-    animation-delay: 3.1s;
+    animation-delay: 3.6s;
   }
 
   .intro-stage.is-playing .ticket-g,
   .intro-stage.is-playing .ticket-g::after {
-    animation-delay: 3.72s;
+    animation-delay: 4.32s;
   }
 
   .intro-stage.is-playing .ticket-h,
   .intro-stage.is-playing .ticket-h::after {
-    animation-delay: 4.34s;
+    animation-delay: 5.04s;
   }
 
   .intro-stage.is-playing .ticket-i,
   .intro-stage.is-playing .ticket-i::after {
-    animation-delay: 4.96s;
+    animation-delay: 5.76s;
   }
 
   .intro-stage.is-playing .ticket-j,
   .intro-stage.is-playing .ticket-j::after {
-    animation-delay: 5.58s;
+    animation-delay: 6.48s;
   }
 
   .improvement-board {
