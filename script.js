@@ -27,6 +27,7 @@ const agendaList = document.querySelector("[data-agenda-list]");
 const closeAgendaButton = document.querySelector("[data-close-agenda]");
 const ticketCards = Array.from(document.querySelectorAll("[data-ticket-card]"));
 const nameRain = document.querySelector("[data-name-rain]");
+const championList = document.querySelector("[data-champion-list]");
 
 let completionTimer = null;
 let ticketCycleTimer = null;
@@ -69,6 +70,13 @@ const teamMembers = [
   { name: "Prabhasini Das", role: "Specialist I, Client Support" }
 ];
 
+const championMembers = [
+  ...teamMembers.slice(4, 5),
+  ...teamMembers.slice(0, 4),
+  ...teamMembers.slice(5)
+];
+
+
 const defaultGuest = "Alysen Gunzelman";
 const defaultTopic = "Advanced Salesforce Searching";
 
@@ -101,6 +109,31 @@ const getIntroDuration = () => {
 
 const normalizeText = (value) => value.trim().replace(/\s+/g, " ");
 
+const buildChampionTicker = () => {
+  if (!championList) {
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  const tickerItems = [...championMembers, ...championMembers];
+
+  tickerItems.forEach((member, index) => {
+    const item = document.createElement("span");
+    const name = document.createElement("strong");
+    const role = document.createElement("small");
+    const badge = document.createElement("span");
+
+    item.className = "champion-item";
+    badge.className = "champion-badge";
+    name.textContent = member.name;
+    role.textContent = member.role;
+    badge.innerHTML = "&#9733;&#9733;&#9733;&#9733;&#9733;";
+    item.append(name, badge, role);
+    fragment.append(item);
+  });
+
+  championList.replaceChildren(fragment);
+};
 const buildNameRain = () => {
   if (!nameRain) {
     return;
@@ -478,6 +511,7 @@ const trackSetupSequence = (event) => {
   }
 };
 
+buildChampionTicker();
 buildNameRain();
 loadMeetingDetails();
 cycleTickets();
