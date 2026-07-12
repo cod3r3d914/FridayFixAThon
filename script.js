@@ -85,8 +85,8 @@ const championReactionAssets = [
   "assets/facebook-reaction-fires.png"
 ];
 
-const defaultGuest = "Alysen Gunzelman";
-const defaultTopic = "Advanced Salesforce Searching";
+const defaultGuest = "[Name Here]";
+const defaultTopic = "[Topic here]";
 
 const defaultAgenda = [
   "Welcome and meeting focus",
