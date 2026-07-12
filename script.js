@@ -1,14 +1,25 @@
+const SETUP_SEQUENCE = "codyfix";
+const STORAGE_KEYS = {
+  guest: "fridayFixathonGuest",
+  topic: "fridayFixathonTopic"
+};
+
 const stage = document.querySelector("[data-stage]");
 const startButton = document.querySelector("[data-start-intro]");
 const audio = document.querySelector("[data-intro-audio]");
 const audioNote = document.querySelector("[data-audio-note]");
-const counters = Array.from(document.querySelectorAll("[data-counter]"));
+const setupPanel = document.querySelector("[data-setup-panel]");
+const guestInput = document.querySelector("[data-guest-input]");
+const topicInput = document.querySelector("[data-topic-input]");
+const closeSetupButton = document.querySelector("[data-close-setup]");
+const guestLine = document.querySelector("[data-guest-line]");
+const topicLine = document.querySelector("[data-topic-line]");
 const ticketCards = Array.from(document.querySelectorAll("[data-ticket-card]"));
 
 let completionTimer = null;
-let counterFrame = null;
 let ticketCycleTimer = null;
 let ticketCycleIndex = 0;
+let commandBuffer = "";
 
 const FALLBACK_DURATION_MS = 18000;
 
@@ -43,13 +54,74 @@ const getIntroDuration = () => {
   return FALLBACK_DURATION_MS;
 };
 
-const formatCounterValue = (counter, progressValue) => {
-  const target = Number(counter.dataset.target || 0);
-  const decimals = Number(counter.dataset.decimals || 0);
-  const prefix = counter.dataset.prefix || "";
-  const suffix = counter.dataset.suffix || "";
-  const value = target * progressValue;
-  return `${prefix}${value.toFixed(decimals)}${suffix}`;
+const normalizeText = (value) => value.trim().replace(/\s+/g, " ");
+
+const setMeetingDetails = (guest, topic) => {
+  const guestText = normalizeText(guest) || "TBA";
+  const topicText = normalizeText(topic) || "Today's focus";
+
+  if (guestLine) {
+    guestLine.textContent = `Guest speaker: ${guestText}`;
+  }
+
+  if (topicLine) {
+    topicLine.textContent = `Topic: ${topicText}`;
+  }
+
+  if (guestInput) {
+    guestInput.value = guestText === "TBA" ? "" : guestText;
+  }
+
+  if (topicInput) {
+    topicInput.value = topicText === "Today's focus" ? "" : topicText;
+  }
+};
+
+const loadMeetingDetails = () => {
+  const params = new URLSearchParams(window.location.search);
+  const guest = params.get("guest") || window.localStorage.getItem(STORAGE_KEYS.guest) || "";
+  const topic = params.get("topic") || window.localStorage.getItem(STORAGE_KEYS.topic) || "";
+  setMeetingDetails(guest, topic);
+};
+
+const saveMeetingDetails = () => {
+  const guest = normalizeText(guestInput?.value || "");
+  const topic = normalizeText(topicInput?.value || "");
+
+  if (guest) {
+    window.localStorage.setItem(STORAGE_KEYS.guest, guest);
+  } else {
+    window.localStorage.removeItem(STORAGE_KEYS.guest);
+  }
+
+  if (topic) {
+    window.localStorage.setItem(STORAGE_KEYS.topic, topic);
+  } else {
+    window.localStorage.removeItem(STORAGE_KEYS.topic);
+  }
+
+  setMeetingDetails(guest, topic);
+  hideSetupPanel();
+  showNote("Guest speaker and topic updated.");
+};
+
+const showSetupPanel = () => {
+  if (!setupPanel) {
+    return;
+  }
+
+  setupPanel.hidden = false;
+  stage?.classList.add("is-setup-open");
+  window.setTimeout(() => guestInput?.focus(), 0);
+};
+
+const hideSetupPanel = () => {
+  if (!setupPanel) {
+    return;
+  }
+
+  setupPanel.hidden = true;
+  stage?.classList.remove("is-setup-open");
 };
 
 const updateTicketCard = (card, theme, index) => {
@@ -88,7 +160,7 @@ const startTicketCycle = () => {
   window.clearInterval(ticketCycleTimer);
   ticketCycleIndex = 0;
   cycleTickets();
-  ticketCycleTimer = window.setInterval(cycleTickets, 2300);
+  ticketCycleTimer = window.setInterval(cycleTickets, 2700);
 };
 
 const stopTicketCycle = () => {
@@ -111,49 +183,17 @@ const finishIntro = () => {
   }
 };
 
-const animateCounters = () => {
-  if (!counters.length) {
-    return;
-  }
-
-  if (counterFrame) {
-    window.cancelAnimationFrame(counterFrame);
-  }
-
-  const start = window.performance.now();
-  const duration = 6500;
-
-  counters.forEach((counter) => {
-    counter.textContent = formatCounterValue(counter, 0);
-  });
-
-  const tick = (now) => {
-    const progress = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-
-    counters.forEach((counter) => {
-      counter.textContent = formatCounterValue(counter, eased);
-    });
-
-    if (progress < 1) {
-      counterFrame = window.requestAnimationFrame(tick);
-    }
-  };
-
-  counterFrame = window.requestAnimationFrame(tick);
-};
-
 const restartAnimation = () => {
   if (!stage) {
     return;
   }
 
+  hideSetupPanel();
   window.clearTimeout(completionTimer);
   stage.classList.remove("is-playing", "is-complete");
   void stage.offsetWidth;
   stage.classList.add("is-playing");
   startTicketCycle();
-  animateCounters();
 
   completionTimer = window.setTimeout(finishIntro, getIntroDuration());
 };
@@ -175,12 +215,51 @@ const startIntro = async () => {
   }
 };
 
+const trackSetupSequence = (event) => {
+  const target = event.target;
+
+  if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+    return;
+  }
+
+  if (event.key === "Escape") {
+    hideSetupPanel();
+    commandBuffer = "";
+    return;
+  }
+
+  if (event.key.length !== 1) {
+    return;
+  }
+
+  commandBuffer = `${commandBuffer}${event.key.toLowerCase()}`.slice(-SETUP_SEQUENCE.length);
+
+  if (commandBuffer === SETUP_SEQUENCE) {
+    showSetupPanel();
+    commandBuffer = "";
+  }
+};
+
+loadMeetingDetails();
 cycleTickets();
 
 if (startButton) {
   startButton.addEventListener("click", startIntro);
 }
 
+if (setupPanel) {
+  setupPanel.addEventListener("submit", (event) => {
+    event.preventDefault();
+    saveMeetingDetails();
+  });
+}
+
+if (closeSetupButton) {
+  closeSetupButton.addEventListener("click", hideSetupPanel);
+}
+
 if (audio) {
   audio.addEventListener("ended", finishIntro);
 }
+
+document.addEventListener("keydown", trackSetupSequence);

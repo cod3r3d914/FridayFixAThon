@@ -17,6 +17,21 @@
       <div class="flow flow-two" aria-hidden="true"></div>
       <div class="pulse-line" aria-hidden="true"></div>
 
+      <form class="setup-panel" data-setup-panel hidden>
+        <label>
+          <span>Guest speaker</span>
+          <input type="text" data-guest-input placeholder="Name" autocomplete="off" />
+        </label>
+        <label>
+          <span>Topic</span>
+          <input type="text" data-topic-input placeholder="Focus area" autocomplete="off" />
+        </label>
+        <div class="setup-actions">
+          <button type="submit">Apply</button>
+          <button type="button" data-close-setup>Close</button>
+        </div>
+      </form>
+
       <div class="support-motion" aria-hidden="true">
         <div class="queue-label">Live Support Queue</div>
 
@@ -44,50 +59,10 @@
           <span class="ticket-meta" data-ticket-meta>Integration</span>
           <span class="ticket-status" data-ticket-status>Partnered</span>
         </div>
-        <div class="ticket-card ticket-e" data-ticket-card>
-          <span class="ticket-id" data-ticket-id>CASE-2518</span>
-          <strong data-ticket-title>API Failures for Luma</strong>
-          <span class="ticket-meta" data-ticket-meta>API</span>
-          <span class="ticket-status" data-ticket-status>Escalated</span>
-        </div>
-        <div class="ticket-card ticket-f" data-ticket-card>
-          <span class="ticket-id" data-ticket-id>CASE-2634</span>
-          <strong data-ticket-title>Enrollment issue for PxP</strong>
-          <span class="ticket-meta" data-ticket-meta>PxP enrollment</span>
-          <span class="ticket-status" data-ticket-status>Next step</span>
-        </div>
 
-        <div class="metrics-cluster" aria-label="Support metrics animation">
-          <div class="metric-tile metric-one">
-            <strong><span data-counter data-target="24" data-prefix="-" data-suffix="%">0</span></strong>
-            <span>time to resolution</span>
-          </div>
-          <div class="metric-tile metric-two">
-            <strong><span data-counter data-target="78" data-suffix="%">0</span></strong>
-            <span>FDR</span>
-          </div>
-          <div class="metric-tile metric-three">
-            <strong><span data-counter data-target="86" data-suffix="%">0</span></strong>
-            <span>FCR</span>
-          </div>
-          <div class="metric-tile metric-four">
-            <strong><span data-counter data-target="7" data-suffix="%">0</span></strong>
-            <span>case reopen rate</span>
-          </div>
-          <div class="metric-tile metric-five">
-            <strong><span data-counter data-target="12" data-suffix="%">0</span></strong>
-            <span>follow-up required</span>
-          </div>
-          <div class="metric-tile metric-six">
-            <strong><span data-counter data-target="2.1" data-decimals="1">0</span></strong>
-            <span>touches to advise</span>
-          </div>
-        </div>
-
-        <div class="impact-rail" aria-label="Meeting outcomes">
+        <div class="improvement-board" aria-label="Meeting improvements animation">
           <span>Improve knowledge</span>
           <span>Improve documentation</span>
-          <span>Improve metrics</span>
           <span>Recorded every meeting</span>
           <span>Improve client experience</span>
           <span>Improve patient experience</span>
@@ -111,6 +86,8 @@
         </h1>
         <p class="subline">Let's fix what matters.</p>
         <p class="host-line">Hosted by: Cody Allison</p>
+        <p class="guest-line" data-guest-line>Guest speaker: TBA</p>
+        <p class="topic-line" data-topic-line>Topic: Today's focus</p>
       </section>
 
       <button class="start-button" type="button" data-start-intro>Start intro</button>
