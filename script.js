@@ -405,6 +405,7 @@ const waitForFinishClick = () => {
   stage.classList.add("is-awaiting-replay");
 
   if (startButton) {
+    startButton.hidden = false;
     startButton.textContent = "Replay intro";
   }
 };
@@ -422,6 +423,7 @@ const restartAnimation = () => {
   stage.classList.add("is-playing");
 
   if (startButton) {
+    startButton.hidden = true;
     startButton.textContent = "Start fixing";
   }
 
@@ -433,6 +435,7 @@ const restartAnimation = () => {
 const startIntro = async () => {
   stage?.classList.remove("is-awaiting-replay");
   if (startButton) {
+    startButton.hidden = true;
     startButton.textContent = "Start fixing";
   }
 
@@ -448,6 +451,9 @@ const startIntro = async () => {
     window.clearTimeout(completionTimer);
     completionTimer = window.setTimeout(waitForFinishClick, getIntroDuration());
   } catch (error) {
+    if (startButton) {
+      startButton.hidden = false;
+    }
     showNote(audio.error ? "MP3 not found. Check assets/friday-fixathon-intro.mp3." : "Animation is playing. If music does not start, click Start fixing directly in the browser.");
   }
 };
