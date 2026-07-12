@@ -18,40 +18,82 @@
       <div class="pulse-line" aria-hidden="true"></div>
 
       <div class="support-motion" aria-hidden="true">
-        <div class="ticket-card ticket-a">
-          <span class="ticket-id">TKT-2184</span>
-          <strong>Portal access</strong>
-          <span class="ticket-status">Solved</span>
+        <div class="queue-label">Live Support Queue</div>
+
+        <div class="ticket-card ticket-a" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-1842</span>
+          <strong data-ticket-title>CCD not sending</strong>
+          <span class="ticket-meta" data-ticket-meta>Interoperability</span>
+          <span class="ticket-status" data-ticket-status>Triaged</span>
         </div>
-        <div class="ticket-card ticket-b">
-          <span class="ticket-id">TKT-2261</span>
-          <strong>Claim edit</strong>
-          <span class="ticket-status">Solved</span>
+        <div class="ticket-card ticket-b" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-2261</span>
+          <strong data-ticket-title>Appointments not syncing</strong>
+          <span class="ticket-meta" data-ticket-meta>Scheduling</span>
+          <span class="ticket-status" data-ticket-status>Fix found</span>
         </div>
-        <div class="ticket-card ticket-c">
-          <span class="ticket-id">TKT-2319</span>
-          <strong>Rx routing</strong>
-          <span class="ticket-status">Solved</span>
+        <div class="ticket-card ticket-c" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-2319</span>
+          <strong data-ticket-title>Balance updates</strong>
+          <span class="ticket-meta" data-ticket-meta>Patient account</span>
+          <span class="ticket-status" data-ticket-status>KB linked</span>
         </div>
-        <div class="ticket-card ticket-d">
-          <span class="ticket-id">TKT-2407</span>
-          <strong>Schedule sync</strong>
-          <span class="ticket-status">Solved</span>
+        <div class="ticket-card ticket-d" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-2407</span>
+          <strong data-ticket-title>Luma Demographic Form Sync</strong>
+          <span class="ticket-meta" data-ticket-meta>Integration</span>
+          <span class="ticket-status" data-ticket-status>Partnered</span>
+        </div>
+        <div class="ticket-card ticket-e" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-2518</span>
+          <strong data-ticket-title>API Failures for Luma</strong>
+          <span class="ticket-meta" data-ticket-meta>API</span>
+          <span class="ticket-status" data-ticket-status>Escalated</span>
+        </div>
+        <div class="ticket-card ticket-f" data-ticket-card>
+          <span class="ticket-id" data-ticket-id>CASE-2634</span>
+          <strong data-ticket-title>Enrollment issue for PxP</strong>
+          <span class="ticket-meta" data-ticket-meta>PxP enrollment</span>
+          <span class="ticket-status" data-ticket-status>Next step</span>
         </div>
 
-        <div class="metrics-cluster">
+        <div class="metrics-cluster" aria-label="Support metrics animation">
           <div class="metric-tile metric-one">
-            <strong><span data-counter data-target="42">0</span></strong>
-            <span>tickets solved</span>
+            <strong><span data-counter data-target="24" data-prefix="-" data-suffix="%">0</span></strong>
+            <span>time to resolution</span>
           </div>
           <div class="metric-tile metric-two">
-            <strong><span data-counter data-target="91">0</span>%</strong>
-            <span>first-touch clarity</span>
+            <strong><span data-counter data-target="78" data-suffix="%">0</span></strong>
+            <span>FDR</span>
           </div>
           <div class="metric-tile metric-three">
-            <strong><span data-counter data-target="18">0</span>m</strong>
-            <span>time returned</span>
+            <strong><span data-counter data-target="86" data-suffix="%">0</span></strong>
+            <span>FCR</span>
           </div>
+          <div class="metric-tile metric-four">
+            <strong><span data-counter data-target="7" data-suffix="%">0</span></strong>
+            <span>case reopen rate</span>
+          </div>
+          <div class="metric-tile metric-five">
+            <strong><span data-counter data-target="12" data-suffix="%">0</span></strong>
+            <span>follow-up required</span>
+          </div>
+          <div class="metric-tile metric-six">
+            <strong><span data-counter data-target="2.1" data-decimals="1">0</span></strong>
+            <span>touches to advise</span>
+          </div>
+        </div>
+
+        <div class="impact-rail" aria-label="Meeting outcomes">
+          <span>Improve knowledge</span>
+          <span>Improve documentation</span>
+          <span>Improve metrics</span>
+          <span>Recorded every meeting</span>
+          <span>Improve client experience</span>
+          <span>Improve patient experience</span>
+          <span>Strengthen partnerships</span>
+          <span>Cross training</span>
+          <span>Share KB articles</span>
         </div>
 
         <div class="resolution-ring">

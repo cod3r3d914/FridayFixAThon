@@ -113,20 +113,37 @@ button {
   pointer-events: none;
 }
 
+.queue-label,
 .ticket-card,
 .metric-tile,
+.impact-rail,
 .resolution-ring {
   position: absolute;
   opacity: 0;
 }
 
+.queue-label {
+  left: clamp(1rem, 4vw, 3.2rem);
+  top: clamp(1rem, 5vh, 3rem);
+  padding: 0.55rem 0.68rem;
+  color: var(--green);
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  border: 1px solid rgba(163, 232, 90, 0.22);
+  border-radius: 8px;
+  background: rgba(4, 16, 21, 0.54);
+  backdrop-filter: blur(16px);
+}
+
 .ticket-card {
-  width: 190px;
-  min-height: 92px;
+  width: clamp(178px, 16vw, 232px);
+  min-height: 118px;
   padding: 0.78rem 0.82rem;
   border: 1px solid rgba(246, 255, 251, 0.16);
   border-radius: 8px;
-  background: linear-gradient(145deg, rgba(8, 33, 43, 0.82), rgba(6, 19, 25, 0.72));
+  background: linear-gradient(145deg, rgba(8, 33, 43, 0.86), rgba(6, 19, 25, 0.76));
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(18px);
 }
@@ -141,8 +158,10 @@ button {
 }
 
 .ticket-id,
+.ticket-meta,
 .ticket-status,
-.metric-tile span {
+.metric-tile span,
+.impact-rail span {
   display: block;
   letter-spacing: 0;
   text-transform: uppercase;
@@ -155,14 +174,28 @@ button {
 }
 
 .ticket-card strong {
+  position: relative;
+  z-index: 1;
   display: block;
-  margin: 0.36rem 0 0.52rem;
+  min-height: 2.3em;
+  margin: 0.34rem 0 0.45rem;
   color: rgba(246, 255, 251, 0.96);
-  font-size: 1.05rem;
-  line-height: 1.1;
+  font-size: clamp(0.92rem, 1.2vw, 1.08rem);
+  line-height: 1.12;
+}
+
+.ticket-meta {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0.52rem;
+  color: rgba(246, 255, 251, 0.62);
+  font-size: 0.63rem;
+  font-weight: 760;
 }
 
 .ticket-status {
+  position: relative;
+  z-index: 1;
   width: max-content;
   padding: 0.34rem 0.48rem;
   color: #041015;
@@ -175,43 +208,55 @@ button {
 }
 
 .ticket-status::before {
-  content: "? ";
+  content: "+ ";
 }
 
 .ticket-a {
-  left: -210px;
-  top: 18vh;
+  left: -250px;
+  top: 16vh;
 }
 
 .ticket-b {
-  right: -220px;
-  top: 31vh;
+  right: -250px;
+  top: 25vh;
 }
 
 .ticket-c {
-  left: -230px;
-  bottom: 24vh;
+  left: -260px;
+  bottom: 28vh;
 }
 
 .ticket-d {
-  right: -230px;
-  bottom: 15vh;
+  right: -260px;
+  bottom: 24vh;
+}
+
+.ticket-e {
+  left: -270px;
+  top: 42vh;
+}
+
+.ticket-f {
+  right: -270px;
+  top: 55vh;
 }
 
 .metrics-cluster {
   position: absolute;
-  inset: auto 4vw 9vh auto;
+  inset: auto clamp(1rem, 4vw, 3rem) clamp(5.2rem, 9vh, 6.2rem) auto;
   display: grid;
-  gap: 0.7rem;
-  width: min(300px, 36vw);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.58rem;
+  width: min(430px, 38vw);
 }
 
 .metric-tile {
   position: relative;
-  padding: 0.75rem 0.82rem;
+  min-height: 84px;
+  padding: 0.72rem 0.78rem;
   border: 1px solid rgba(246, 255, 251, 0.15);
   border-radius: 8px;
-  background: rgba(4, 16, 21, 0.62);
+  background: rgba(4, 16, 21, 0.66);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(16px);
   transform: translateY(16px);
@@ -220,16 +265,39 @@ button {
 .metric-tile strong {
   display: block;
   color: var(--green);
-  font-size: clamp(1.35rem, 2.6vw, 2.35rem);
+  font-size: clamp(1.18rem, 2vw, 2rem);
   line-height: 1;
   font-variant-numeric: tabular-nums;
 }
 
 .metric-tile span {
-  margin-top: 0.34rem;
-  color: rgba(246, 255, 251, 0.7);
-  font-size: 0.66rem;
+  margin-top: 0.36rem;
+  color: rgba(246, 255, 251, 0.72);
+  font-size: 0.62rem;
   font-weight: 850;
+}
+
+.impact-rail {
+  left: 50%;
+  bottom: clamp(1rem, 2.2vh, 1.6rem);
+  z-index: 1;
+  display: flex;
+  gap: 0.55rem;
+  width: max-content;
+  max-width: none;
+  transform: translateX(-50%);
+}
+
+.impact-rail span {
+  flex: 0 0 auto;
+  padding: 0.48rem 0.64rem;
+  color: rgba(246, 255, 251, 0.74);
+  font-size: 0.62rem;
+  font-weight: 850;
+  border: 1px solid rgba(113, 168, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(7, 28, 35, 0.72);
+  backdrop-filter: blur(14px);
 }
 
 .resolution-ring {
@@ -397,74 +465,116 @@ h1 {
   animation: pulseSweep 3.4s 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
 }
 
+.intro-stage.is-playing .queue-label {
+  animation: fadeRise 850ms 0.35s ease both;
+}
+
 .intro-stage.is-playing .resolution-ring {
   animation: ringWake 9.6s 0.4s ease-out infinite;
 }
 
 .intro-stage.is-playing .ticket-card {
-  animation: ticketResolve 9.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: ticketResolve 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .intro-stage.is-playing .ticket-card::before {
-  animation: solvedGlow 9.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: solvedGlow 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .intro-stage.is-playing .ticket-status {
-  animation: statusPop 9.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: statusPop 10.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
 .intro-stage.is-playing .ticket-b,
 .intro-stage.is-playing .ticket-b::before,
 .intro-stage.is-playing .ticket-b .ticket-status {
-  animation-delay: 1.1s;
+  animation-delay: 0.95s;
 }
 
 .intro-stage.is-playing .ticket-c,
 .intro-stage.is-playing .ticket-c::before,
 .intro-stage.is-playing .ticket-c .ticket-status {
-  animation-delay: 2.25s;
+  animation-delay: 1.9s;
 }
 
 .intro-stage.is-playing .ticket-d,
 .intro-stage.is-playing .ticket-d::before,
 .intro-stage.is-playing .ticket-d .ticket-status {
-  animation-delay: 3.45s;
+  animation-delay: 2.85s;
+}
+
+.intro-stage.is-playing .ticket-e,
+.intro-stage.is-playing .ticket-e::before,
+.intro-stage.is-playing .ticket-e .ticket-status {
+  animation-delay: 3.8s;
+}
+
+.intro-stage.is-playing .ticket-f,
+.intro-stage.is-playing .ticket-f::before,
+.intro-stage.is-playing .ticket-f .ticket-status {
+  animation-delay: 4.75s;
 }
 
 .intro-stage.is-playing .ticket-a {
-  --ticket-end-x: 34vw;
-  --ticket-end-y: 2vh;
+  --ticket-end-x: 31vw;
+  --ticket-end-y: 3vh;
 }
 
 .intro-stage.is-playing .ticket-b {
-  --ticket-end-x: -35vw;
-  --ticket-end-y: 4vh;
+  --ticket-end-x: -34vw;
+  --ticket-end-y: 2vh;
 }
 
 .intro-stage.is-playing .ticket-c {
-  --ticket-end-x: 36vw;
+  --ticket-end-x: 34vw;
   --ticket-end-y: -4vh;
 }
 
 .intro-stage.is-playing .ticket-d {
-  --ticket-end-x: -38vw;
-  --ticket-end-y: -2vh;
+  --ticket-end-x: -36vw;
+  --ticket-end-y: -5vh;
+}
+
+.intro-stage.is-playing .ticket-e {
+  --ticket-end-x: 29vw;
+  --ticket-end-y: -8vh;
+}
+
+.intro-stage.is-playing .ticket-f {
+  --ticket-end-x: -31vw;
+  --ticket-end-y: 7vh;
 }
 
 .intro-stage.is-playing .metric-tile {
-  animation: metricRise 7.5s ease-in-out infinite;
+  animation: metricRise 8.4s ease-in-out infinite;
 }
 
 .intro-stage.is-playing .metric-one {
-  animation-delay: 1.3s;
+  animation-delay: 1.2s;
 }
 
 .intro-stage.is-playing .metric-two {
-  animation-delay: 2s;
+  animation-delay: 1.55s;
 }
 
 .intro-stage.is-playing .metric-three {
-  animation-delay: 2.7s;
+  animation-delay: 1.9s;
+}
+
+.intro-stage.is-playing .metric-four {
+  animation-delay: 2.25s;
+}
+
+.intro-stage.is-playing .metric-five {
+  animation-delay: 2.6s;
+}
+
+.intro-stage.is-playing .metric-six {
+  animation-delay: 2.95s;
+}
+
+.intro-stage.is-playing .impact-rail {
+  animation: impactScroll 15s 1.1s linear infinite;
 }
 
 .intro-stage.is-playing .eyebrow {
@@ -624,6 +734,20 @@ h1 {
   }
 }
 
+@keyframes impactScroll {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  8%, 88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+    transform: translateX(calc(-50% - 22vw)) translateY(0);
+  }
+}
+
 @keyframes fadeRise {
   to {
     opacity: 1;
@@ -656,6 +780,16 @@ h1 {
   }
 }
 
+@media (max-width: 920px) {
+  .metrics-cluster {
+    width: min(390px, 45vw);
+  }
+
+  .metric-tile {
+    min-height: 78px;
+  }
+}
+
 @media (max-width: 760px) {
   .intro-stage {
     padding: 1.2rem;
@@ -665,13 +799,22 @@ h1 {
     font-size: clamp(3.25rem, 18vw, 5.8rem);
   }
 
+  .queue-label {
+    display: none;
+  }
+
   .ticket-card {
-    width: 150px;
-    min-height: 82px;
+    width: 156px;
+    min-height: 108px;
   }
 
   .ticket-card strong {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  .ticket-e,
+  .ticket-f {
+    display: none;
   }
 
   .metrics-cluster {
@@ -683,15 +826,20 @@ h1 {
   }
 
   .metric-tile {
-    padding: 0.62rem;
+    min-height: 72px;
+    padding: 0.58rem;
   }
 
   .metric-tile strong {
-    font-size: 1.25rem;
+    font-size: 1.12rem;
   }
 
   .metric-tile span {
-    font-size: 0.58rem;
+    font-size: 0.54rem;
+  }
+
+  .impact-rail {
+    display: none;
   }
 
   .start-button {
@@ -712,9 +860,11 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .flow,
   .pulse-line,
+  .queue-label,
   .resolution-ring,
   .ticket-card,
   .metric-tile,
+  .impact-rail,
   .eyebrow,
   .word,
   .subline,
