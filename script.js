@@ -14,9 +14,17 @@ const audioNote = document.querySelector("[data-audio-note]");
 const setupPanel = document.querySelector("[data-setup-panel]");
 const guestInput = document.querySelector("[data-guest-input]");
 const topicInput = document.querySelector("[data-topic-input]");
+const dateInput = document.querySelector("[data-date-input]");
+const agendaInput = document.querySelector("[data-agenda-input]");
 const closeSetupButton = document.querySelector("[data-close-setup]");
+const useTodayButton = document.querySelector("[data-use-today]");
 const guestLine = document.querySelector("[data-guest-line]");
 const topicLine = document.querySelector("[data-topic-line]");
+const dateLine = document.querySelector("[data-date-line]");
+const agendaButton = document.querySelector("[data-toggle-agenda]");
+const agendaPanel = document.querySelector("[data-agenda-panel]");
+const agendaList = document.querySelector("[data-agenda-list]");
+const closeAgendaButton = document.querySelector("[data-close-agenda]");
 const ticketCards = Array.from(document.querySelectorAll("[data-ticket-card]"));
 const nameRain = document.querySelector("[data-name-rain]");
 
@@ -346,10 +354,11 @@ const finishIntro = () => {
   window.clearTimeout(completionTimer);
   completionTimer = null;
   stopTicketCycle();
+  stage.classList.remove("is-playing");
   stage.classList.add("is-complete");
 
   if (startButton) {
-    startButton.textContent = "Replay intro";
+    startButton.textContent = "Fix again";
   }
 };
 
@@ -382,7 +391,7 @@ const startIntro = async () => {
     window.clearTimeout(completionTimer);
     completionTimer = window.setTimeout(finishIntro, getIntroDuration());
   } catch (error) {
-    showNote(audio.error ? "MP3 not found. Check assets/friday-fixathon-intro.mp3." : "Animation is playing. If music does not start, click Start intro directly in the browser.");
+    showNote(audio.error ? "MP3 not found. Check assets/friday-fixathon-intro.mp3." : "Animation is playing. If music does not start, click Start fixing directly in the browser.");
   }
 };
 
