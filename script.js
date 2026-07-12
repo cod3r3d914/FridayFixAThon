@@ -87,6 +87,7 @@ const championReactionAssets = [
 
 const defaultGuest = "[Name Here]";
 const defaultTopic = "[Topic here]";
+const defaultDate = "2026-07-24";
 
 const defaultAgenda = [
   "Welcome and meeting focus",
@@ -184,7 +185,7 @@ const getTodayValue = () => {
 };
 
 const formatMeetingDate = (dateValue) => {
-  const value = dateValue || getTodayValue();
+  const value = dateValue || defaultDate;
   const parsed = new Date(`${value}T12:00:00`);
 
   if (Number.isNaN(parsed.getTime())) {
@@ -225,7 +226,7 @@ const renderAgenda = (items) => {
 const setMeetingDetails = (guest, topic, dateValue, agendaItems) => {
   const guestText = normalizeText(guest) || defaultGuest;
   const topicText = normalizeText(topic) || defaultTopic;
-  const meetingDate = dateValue || getTodayValue();
+  const meetingDate = dateValue || defaultDate;
   const agenda = Array.isArray(agendaItems) ? agendaItems : parseAgendaItems(agendaItems || "");
 
   if (guestLine) {
@@ -263,7 +264,7 @@ const loadMeetingDetails = () => {
   const params = new URLSearchParams(window.location.search);
   const guest = params.get("guest") || window.localStorage.getItem(STORAGE_KEYS.guest) || "";
   const topic = params.get("topic") || window.localStorage.getItem(STORAGE_KEYS.topic) || "";
-  const dateValue = params.get("date") || window.localStorage.getItem(STORAGE_KEYS.date) || getTodayValue();
+  const dateValue = params.get("date") || window.localStorage.getItem(STORAGE_KEYS.date) || defaultDate;
   const agenda = params.get("agenda") || window.localStorage.getItem(STORAGE_KEYS.agenda) || "";
   setMeetingDetails(guest, topic, dateValue, parseAgendaItems(agenda));
 };
@@ -271,7 +272,7 @@ const loadMeetingDetails = () => {
 const saveMeetingDetails = () => {
   const guest = normalizeText(guestInput?.value || "");
   const topic = normalizeText(topicInput?.value || "");
-  const dateValue = dateInput?.value || getTodayValue();
+  const dateValue = dateInput?.value || defaultDate;
   const agendaItems = parseAgendaItems(agendaInput?.value || "");
 
   if (guest) {
