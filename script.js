@@ -32,6 +32,7 @@ const championsPad = document.querySelector(".champions-pad");
 
 let completionTimer = null;
 let ticketCycleTimer = null;
+let waitingForFinishClick = false;
 let ticketCycleIndex = 0;
 let commandBuffer = "";
 let setupTapCount = 0;
@@ -392,6 +393,16 @@ const stopTicketCycle = () => {
   ticketCycleTimer = null;
 };
 
+const waitForFinishClick = () => {
+  if (!stage || waitingForFinishClick || stage.classList.contains("is-complete")) {
+    return;
+  }
+
+  window.clearTimeout(completionTimer);
+  completionTimer = null;
+  stopTicketCycle();
+  waitingForFinishClick = true;
+};
 const finishIntro = () => {
   if (!stage) {
     return;
@@ -399,6 +410,7 @@ const finishIntro = () => {
 
   window.clearTimeout(completionTimer);
   completionTimer = null;
+  waitingForFinishClick = false;
   stopTicketCycle();
   stage.classList.remove("is-playing");
   stage.classList.add("is-complete");
@@ -415,13 +427,14 @@ const restartAnimation = () => {
 
   hideSetupPanel();
   hideAgendaPanel();
+  waitingForFinishClick = false;
   window.clearTimeout(completionTimer);
   stage.classList.remove("is-playing", "is-complete");
   void stage.offsetWidth;
   stage.classList.add("is-playing");
   startTicketCycle();
 
-  completionTimer = window.setTimeout(finishIntro, getIntroDuration());
+  completionTimer = window.setTimeout(waitForFinishClick, getIntroDuration());
 };
 
 const startIntro = async () => {
@@ -435,7 +448,7 @@ const startIntro = async () => {
     audio.currentTime = 0;
     await audio.play();
     window.clearTimeout(completionTimer);
-    completionTimer = window.setTimeout(finishIntro, getIntroDuration());
+    completionTimer = window.setTimeout(waitForFinishClick, getIntroDuration());
   } catch (error) {
     showNote(audio.error ? "MP3 not found. Check assets/friday-fixathon-intro.mp3." : "Animation is playing. If music does not start, click Start fixing directly in the browser.");
   }
@@ -496,6 +509,11 @@ const trackMobileSetupTap = (event) => {
     setupTapCount = 0;
     window.clearTimeout(setupTapTimer);
     showSetupPanel();
+  }
+};
+const handleFinishClick = () => {
+  if (waitingForFinishClick) {
+    finishIntro();
   }
 };
 const trackSetupSequence = (event) => {
@@ -575,8 +593,9 @@ if (championsPad) {
 }
 
 if (audio) {
-  audio.addEventListener("ended", finishIntro);
+  audio.addEventListener("ended", waitForFinishClick);
 }
 
+document.addEventListener("click", handleFinishClick);
 document.addEventListener("keydown", trackSetupSequence);
 stage?.addEventListener("pointerup", trackMobileSetupTap);
