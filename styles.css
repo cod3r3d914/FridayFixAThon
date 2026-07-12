@@ -460,6 +460,7 @@ textarea {
   min-height: 166px;
   padding: 0.95rem 0.92rem 0.86rem;
   pointer-events: none;
+  visibility: hidden;
   opacity: 0;
   overflow: hidden;
   color: var(--ink);
@@ -598,11 +599,11 @@ textarea {
 }
 .intro-stage.is-playing .champions-pad {
   pointer-events: auto;
-  animation: padPopIn 800ms 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: padPopIn 800ms 8.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .intro-stage.is-playing .champions-track {
-  animation: championScroll 24s linear infinite;
+  animation: championScroll 24s 8.35s linear infinite;
 }
 
 .intro-copy {
@@ -1310,14 +1311,21 @@ textarea:focus-visible {
 
 @keyframes padPopIn {
   0% {
+    visibility: hidden;
     opacity: 0;
     transform: rotate(-1.4deg) translateY(18px) scale(0.96);
   }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
   72% {
+    visibility: visible;
     opacity: 1;
     transform: rotate(-1.4deg) translateY(-3px) scale(1.02);
   }
   100% {
+    visibility: visible;
     opacity: 1;
     transform: rotate(-1.4deg) translateY(0) scale(1);
   }
@@ -1834,6 +1842,7 @@ textarea:focus-visible {
   .topic-line,
   .champions-pad {
     animation: none !important;
+    visibility: visible;
     opacity: 1;
     filter: none;
     transform: none;
