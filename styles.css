@@ -479,6 +479,10 @@ textarea {
   box-shadow: 0 18px 54px rgba(0, 0, 0, 0.36), 0 0 34px rgba(42, 224, 207, 0.18), inset 0 0 0 1px rgba(246, 255, 251, 0.06);
   text-shadow: none;
   transform: rotate(-1deg) translateY(14px);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
 }
 
 .champions-pad::before {
