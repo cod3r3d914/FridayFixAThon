@@ -1144,6 +1144,22 @@ textarea:focus-visible {
   transform: translate(-50%, calc(-50% + 16px));
 }
 
+.intro-stage.is-playing.is-awaiting-replay .start-button {
+  top: auto;
+  bottom: clamp(1.3rem, 4.5vh, 2.4rem);
+  min-width: 168px;
+  min-height: 52px;
+  padding: 0.78rem 1.1rem;
+  font-size: clamp(0.96rem, 1.7vw, 1.12rem);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%);
+}
+
+.intro-stage.is-playing.is-awaiting-replay .start-button:hover {
+  transform: translateX(-50%) translateY(-3px);
+}
+
 .intro-stage.is-complete .start-button,
 .intro-stage.is-playing .agenda-button,
 .intro-stage.is-complete .agenda-button {

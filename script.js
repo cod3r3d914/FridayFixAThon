@@ -402,24 +402,12 @@ const waitForFinishClick = () => {
   completionTimer = null;
   stopTicketCycle();
   waitingForFinishClick = true;
-};
-const finishIntro = () => {
-  if (!stage) {
-    return;
-  }
-
-  window.clearTimeout(completionTimer);
-  completionTimer = null;
-  waitingForFinishClick = false;
-  stopTicketCycle();
-  stage.classList.remove("is-playing");
-  stage.classList.add("is-complete");
+  stage.classList.add("is-awaiting-replay");
 
   if (startButton) {
-    startButton.textContent = "Fix again";
+    startButton.textContent = "Replay intro";
   }
 };
-
 const restartAnimation = () => {
   if (!stage) {
     return;
@@ -429,9 +417,14 @@ const restartAnimation = () => {
   hideAgendaPanel();
   waitingForFinishClick = false;
   window.clearTimeout(completionTimer);
-  stage.classList.remove("is-playing", "is-complete");
+  stage.classList.remove("is-playing", "is-complete", "is-awaiting-replay");
   void stage.offsetWidth;
   stage.classList.add("is-playing");
+
+  if (startButton) {
+    startButton.textContent = "Start fixing";
+  }
+
   startTicketCycle();
 
   completionTimer = window.setTimeout(waitForFinishClick, getIntroDuration());
@@ -509,11 +502,6 @@ const trackMobileSetupTap = (event) => {
     setupTapCount = 0;
     window.clearTimeout(setupTapTimer);
     showSetupPanel();
-  }
-};
-const handleFinishClick = () => {
-  if (waitingForFinishClick) {
-    finishIntro();
   }
 };
 const trackSetupSequence = (event) => {
@@ -596,6 +584,5 @@ if (audio) {
   audio.addEventListener("ended", waitForFinishClick);
 }
 
-document.addEventListener("click", handleFinishClick);
 document.addEventListener("keydown", trackSetupSequence);
 stage?.addEventListener("pointerup", trackMobileSetupTap);
