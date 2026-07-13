@@ -54,22 +54,22 @@ const ticketThemes = [
 ];
 
 const teamMembers = [
-  { name: "Alysen Gunzelman", role: "Representative II, Client Services" },
-  { name: "Cody Allison", role: "Application Advisor" },
-  { name: "Demetrius Bauldie", role: "Sr. Specialist I, Tech Support" },
-  { name: "Eric Thul", role: "Sr. Specialist I, Tech Support" },
-  { name: "Jessica Page", role: "Director of Client Support Operations" },
-  { name: "Matthew Cress", role: "Specialist II, Technical Support" },
-  { name: "Sandeep Singh", role: "Manager, Client Services" },
-  { name: "Deepak Barman", role: "Specialist I, Client Support" },
-  { name: "Dhanigonda Ramakanth", role: "Client Services Consultant" },
-  { name: "Gray Goliszek", role: "Specialist I, Application Managed Services" },
-  { name: "Hariharan Karthikeyan", role: "Consultant" },
-  { name: "Hrithik Bhat", role: "Consultant" },
-  { name: "J.T. Faircloth", role: "Manager, Application Services" },
-  { name: "Le'Donna Dewberry", role: "Representative II, Application Support" },
-  { name: "Lindsay Lawsure", role: "Sr. Specialist I, Tech Support" },
-  { name: "Prabhasini Das", role: "Specialist I, Client Support" }
+  { name: "Alysen Gunzelman", role: "Support Representative" },
+  { name: "Cody Allison", role: "Support Representative" },
+  { name: "Demetrius Bauldie", role: "Support Representative" },
+  { name: "Eric Thul", role: "Support Representative" },
+  { name: "Jessica Page", role: "Director" },
+  { name: "Matthew Cress", role: "Support Representative" },
+  { name: "Sandeep Singh", role: "Manager" },
+  { name: "Deepak Barman", role: "Support Representative" },
+  { name: "Dhanigonda Ramakanth", role: "Support Representative" },
+  { name: "Gray Goliszek", role: "Support Representative" },
+  { name: "Hariharan Karthikeyan", role: "Support Representative" },
+  { name: "Hrithik Bhat", role: "Support Representative" },
+  { name: "J.T. Faircloth", role: "Support Representative" },
+  { name: "Le'Donna Dewberry", role: "Support Representative" },
+  { name: "Lindsay Lawsure", role: "Support Representative" },
+  { name: "Prabhasini Das", role: "Support Representative" }
 ];
 
 const championMembers = [
