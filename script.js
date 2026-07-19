@@ -94,12 +94,7 @@ const defaultTopic = "[Topic here]";
 const defaultDate = "2026-07-24";
 
 const defaultAgenda = [
-  "Welcome and meeting focus",
-  "Advanced Salesforce search techniques",
-  "Finding accounts, contacts, and cases faster",
-  "Using filters and keywords to narrow results",
-  "Support documentation and KB follow-up",
-  "Open questions and next steps"
+  "Insert agenda"
 ];
 
 const showNote = (message) => {
