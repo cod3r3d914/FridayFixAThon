@@ -70,7 +70,7 @@ const teamMembers = [
   { name: "Gray", role: "Support Representative" },
   { name: "Hariharan", role: "Support Representative" },
   { name: "Hrithik", role: "Support Representative" },
-  { name: "J.T.", role: "Support Representative" },
+  { name: "J.T.", role: "Manager" },
   { name: "Le'Donna", role: "Support Representative" },
   { name: "Lindsay", role: "Support Representative" },
   { name: "Prabhasini", role: "Support Representative" }
