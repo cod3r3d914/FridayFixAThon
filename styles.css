@@ -804,6 +804,86 @@ h1 {
   transform: translateX(-120%);
 }
 
+.start-gate {
+  position: fixed;
+  left: 50%;
+  top: calc(50% - 8.4rem);
+  z-index: 21;
+  display: grid;
+  gap: 0.46rem;
+  width: min(330px, calc(100vw - 2.4rem));
+  color: rgba(246, 255, 251, 0.9);
+  font-weight: 850;
+  text-align: center;
+  transform: translateX(-50%);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.start-gate[hidden] {
+  display: none !important;
+}
+
+.start-gate label {
+  color: var(--green);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(163, 232, 90, 0.28);
+}
+
+.start-gate__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.42rem;
+}
+
+.start-gate input,
+.start-gate button {
+  min-height: 46px;
+  border-radius: 8px;
+}
+
+.start-gate input {
+  min-width: 0;
+  padding: 0.68rem 0.78rem;
+  color: var(--ink);
+  border: 1px solid rgba(163, 232, 90, 0.34);
+  background: rgba(4, 16, 21, 0.82);
+  box-shadow: inset 0 0 14px rgba(163, 232, 90, 0.05);
+}
+
+.start-gate button {
+  padding: 0.68rem 0.9rem;
+  color: #031015;
+  border: 0;
+  background: linear-gradient(135deg, var(--green), var(--teal));
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.start-gate.is-invalid input {
+  border-color: rgba(255, 115, 115, 0.82);
+  box-shadow: 0 0 0 1px rgba(255, 115, 115, 0.28), inset 0 0 14px rgba(255, 115, 115, 0.08);
+}
+
+.start-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+  filter: saturate(0.58);
+  box-shadow: none;
+}
+
+.start-button:disabled:hover {
+  transform: translate(-50%, -50%);
+}
+
+.intro-stage.is-playing .start-gate,
+.intro-stage.is-setup-open .start-gate,
+.intro-stage.is-agenda-open .start-gate {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-12px);
+}
 .start-button {
   position: fixed;
   left: 50%;
@@ -1770,6 +1850,11 @@ textarea:focus-visible {
 
   .improvement-board {
     bottom: 5.6rem;
+  }
+
+  .start-gate {
+    top: calc(50% - 9.6rem);
+    width: min(320px, calc(100vw - 2.4rem));
   }
 
   .start-button {

@@ -1,5 +1,6 @@
 const SETUP_SEQUENCE = "codyfix";
 const SETUP_SHORTCUT = { key: "f", ctrlKey: true, altKey: true };
+const START_PASSWORD_HASH = "4c9c965de96ef35e72b8433c07c853a96d7a33e86c917ea10f9afa5979bd7c28";
 const STORAGE_KEYS = {
   guest: "fridayFixathonGuest",
   topic: "fridayFixathonTopic",
@@ -9,6 +10,8 @@ const STORAGE_KEYS = {
 
 const stage = document.querySelector("[data-stage]");
 const startButton = document.querySelector("[data-start-intro]");
+const startGate = document.querySelector("[data-start-gate]");
+const startPasswordInput = document.querySelector("[data-start-password]");
 const audio = document.querySelector("[data-intro-audio]");
 const audioNote = document.querySelector("[data-audio-note]");
 const setupPanel = document.querySelector("[data-setup-panel]");
@@ -33,6 +36,7 @@ const championsPad = document.querySelector(".champions-pad");
 let completionTimer = null;
 let ticketCycleTimer = null;
 let waitingForFinishClick = false;
+let startUnlocked = false;
 let ticketCycleIndex = 0;
 let commandBuffer = "";
 let setupTapCount = 0;
@@ -108,6 +112,51 @@ const showNote = (message) => {
   window.setTimeout(() => audioNote.classList.remove("is-visible"), 3600);
 };
 
+const hashStartPassword = async (value) => {
+  if (!window.crypto?.subtle || !window.TextEncoder) {
+    throw new Error("Password check requires a secure browser context.");
+  }
+
+  const encoded = new TextEncoder().encode(value);
+  const digest = await window.crypto.subtle.digest("SHA-256", encoded);
+  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+};
+
+const unlockStartGate = async (event) => {
+  event.preventDefault();
+  const password = startPasswordInput?.value.trim() || "";
+
+  try {
+    const candidateHash = await hashStartPassword(password);
+
+    if (candidateHash !== START_PASSWORD_HASH) {
+      startGate?.classList.add("is-invalid");
+      showNote("Password did not match.");
+      startPasswordInput?.select();
+      return;
+    }
+
+    startUnlocked = true;
+    startGate?.classList.remove("is-invalid");
+
+    if (startGate) {
+      startGate.hidden = true;
+    }
+
+    if (startPasswordInput) {
+      startPasswordInput.value = "";
+    }
+
+    if (startButton) {
+      startButton.disabled = false;
+      startButton.focus();
+    }
+
+    showNote("Start unlocked.");
+  } catch (error) {
+    showNote("Open this with the local server or HTTPS to use the password gate.");
+  }
+};
 const getIntroDuration = () => {
   if (audio && Number.isFinite(audio.duration) && audio.duration > 0) {
     return Math.max(audio.duration * 1000, 12000);
@@ -439,6 +488,13 @@ const startIntro = async () => {
     return;
   }
 
+  if (!startUnlocked) {
+    showNote("Enter the password to start.");
+    startGate?.classList.add("is-invalid");
+    startPasswordInput?.focus();
+    return;
+  }
+
   if (startButton) {
     startButton.hidden = true;
     startButton.textContent = "Start fixing";
@@ -559,6 +615,10 @@ const trackSetupSequence = (event) => {
 buildChampionTicker();
 buildNameRain();
 loadMeetingDetails();
+if (startGate) {
+  startGate.addEventListener("submit", unlockStartGate);
+}
+
 if (startButton) {
   startButton.addEventListener("click", startIntro);
   startButton.addEventListener("touchend", handleStartTouch, { passive: false });

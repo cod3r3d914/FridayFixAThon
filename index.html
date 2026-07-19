@@ -151,7 +151,14 @@
         <p class="guest-line" data-guest-line>Presenter: [Name Here]</p>
       </section>
 
-      <button class="start-button" type="button" data-start-intro>Start fixing</button>
+      <form class="start-gate" data-start-gate autocomplete="off">
+        <label for="intro-password">Password</label>
+        <div class="start-gate__row">
+          <input id="intro-password" type="password" data-start-password placeholder="Enter password" autocomplete="off" />
+          <button type="submit">Unlock</button>
+        </div>
+      </form>
+      <button class="start-button" type="button" data-start-intro disabled>Start fixing</button>
       <button class="agenda-button" type="button" data-toggle-agenda>Agenda</button>
       <section class="agenda-panel" data-agenda-panel hidden aria-label="Meeting agenda">
         <div class="agenda-header">
