@@ -1,6 +1,7 @@
 const SETUP_SEQUENCE = "codyfix";
 const SETUP_SHORTCUT = { key: "f", ctrlKey: true, altKey: true };
 const START_PASSWORD_HASH = "4c9c965de96ef35e72b8433c07c853a96d7a33e86c917ea10f9afa5979bd7c28";
+const CHAMPION_UNLOCK_CLICKS = 8;
 const STORAGE_KEYS = {
   guest: "fridayFixathonGuest",
   topic: "fridayFixathonTopic",
@@ -37,12 +38,20 @@ let completionTimer = null;
 let ticketCycleTimer = null;
 let waitingForFinishClick = false;
 let startUnlocked = false;
+let failedPasswordAttempts = 0;
 let ticketCycleIndex = 0;
 let commandBuffer = "";
 let setupTapCount = 0;
 let setupTapTimer = null;
+let championUnlockClicks = 0;
 
 const FALLBACK_DURATION_MS = 18000;
+
+const wrongPasswordMessages = [
+  "wrong password bro..",
+  "still wrong password...stop trying",
+  "just stop, you don't belong here"
+];
 
 const ticketThemes = [
   { title: "CCD Troubleshooting", meta: "Troubleshooting Practice", status: "Signal Found" },
@@ -70,7 +79,6 @@ const teamMembers = [
   { name: "Gray", role: "Support Representative" },
   { name: "Hariharan", role: "Support Representative" },
   { name: "Hrithik", role: "Support Representative" },
-  { name: "J.T.", role: "Manager" },
   { name: "Le'Donna", role: "Support Representative" },
   { name: "Lindsay", role: "Support Representative" },
   { name: "Prabhasini", role: "Support Representative" }
@@ -125,13 +133,15 @@ const unlockStartGate = async (event) => {
     const candidateHash = await hashStartPassword(password);
 
     if (candidateHash !== START_PASSWORD_HASH) {
+      failedPasswordAttempts += 1;
       startGate?.classList.add("is-invalid");
-      showNote("Password did not match.");
+      showNote(wrongPasswordMessages[Math.min(failedPasswordAttempts, wrongPasswordMessages.length) - 1]);
       startPasswordInput?.select();
       return;
     }
 
     startUnlocked = true;
+    failedPasswordAttempts = 0;
     startGate?.classList.remove("is-invalid");
 
     if (startGate) {
@@ -461,6 +471,7 @@ const restartAnimation = () => {
 
   hideSetupPanel();
   hideAgendaPanel();
+  resetChampionUnlock();
   waitingForFinishClick = false;
   window.clearTimeout(completionTimer);
   stage.classList.remove("is-playing", "is-complete", "is-awaiting-replay");
@@ -519,10 +530,29 @@ const handleStartTouch = (event) => {
   startIntro();
 };
 
+const resetChampionUnlock = () => {
+  championUnlockClicks = 0;
+  championsPad?.classList.remove("is-champions-unlocked");
+};
+
+const unlockChampionsIfReady = () => {
+  if (!championsPad || championsPad.classList.contains("is-champions-unlocked")) {
+    return;
+  }
+
+  championUnlockClicks += 1;
+
+  if (championUnlockClicks >= CHAMPION_UNLOCK_CLICKS) {
+    championsPad.classList.add("is-champions-unlocked");
+    showNote("Support Champions unlocked.");
+  }
+};
 const spawnChampionReaction = (event) => {
   if (!stage?.classList.contains("is-playing")) {
     return;
   }
+
+  unlockChampionsIfReady();
 
   const reaction = document.createElement("img");
   const drift = `${Math.round((Math.random() * 80) - 40)}px`;

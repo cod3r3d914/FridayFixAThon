@@ -560,11 +560,19 @@ textarea {
   margin-top: 0.54rem;
   overflow: hidden;
   mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
 .champions-track {
   display: grid;
   gap: 0.42rem;
+}
+
+.champions-pad.is-champions-unlocked .champions-ticker {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .champion-item {
@@ -611,8 +619,8 @@ textarea {
   animation: padPopIn 800ms 8.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.intro-stage.is-playing .champions-track {
-  animation: championScroll 24s 8.35s linear infinite;
+.intro-stage.is-playing .champions-pad.is-champions-unlocked .champions-track {
+  animation: championScroll 24s linear infinite;
 }
 
 .intro-copy {
