@@ -54,22 +54,22 @@ const ticketThemes = [
 ];
 
 const teamMembers = [
-  { name: "Alysen Gunzelman", role: "Support Representative" },
-  { name: "Cody Allison", role: "Support Representative" },
-  { name: "Demetrius Bauldie", role: "Support Representative" },
-  { name: "Eric Thul", role: "Support Representative" },
-  { name: "Jessica Page", role: "Director" },
-  { name: "Matthew Cress", role: "Support Representative" },
-  { name: "Sandeep Singh", role: "Manager" },
-  { name: "Deepak Barman", role: "Support Representative" },
-  { name: "Dhanigonda Ramakanth", role: "Support Representative" },
-  { name: "Gray Goliszek", role: "Support Representative" },
-  { name: "Hariharan Karthikeyan", role: "Support Representative" },
-  { name: "Hrithik Bhat", role: "Support Representative" },
-  { name: "J.T. Faircloth", role: "Support Representative" },
-  { name: "Le'Donna Dewberry", role: "Support Representative" },
-  { name: "Lindsay Lawsure", role: "Support Representative" },
-  { name: "Prabhasini Das", role: "Support Representative" }
+  { name: "Alysen", role: "Support Representative" },
+  { name: "Cody", role: "Support Representative" },
+  { name: "Demetrius", role: "Support Representative" },
+  { name: "Eric", role: "Support Representative" },
+  { name: "Jessica", role: "Director" },
+  { name: "Matthew", role: "Support Representative" },
+  { name: "Sandeep", role: "Manager" },
+  { name: "Deepak", role: "Support Representative" },
+  { name: "Dhanigonda", role: "Support Representative" },
+  { name: "Gray", role: "Support Representative" },
+  { name: "Hariharan", role: "Support Representative" },
+  { name: "Hrithik", role: "Support Representative" },
+  { name: "J.T.", role: "Support Representative" },
+  { name: "Le'Donna", role: "Support Representative" },
+  { name: "Lindsay", role: "Support Representative" },
+  { name: "Prabhasini", role: "Support Representative" }
 ];
 
 const championMembers = [
